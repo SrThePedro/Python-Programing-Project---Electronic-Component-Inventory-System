@@ -248,8 +248,31 @@ def search_item(filename):
                     print(current)
                     print("----------------------------------------------------------------------------------------------------")
                     return current
+    elif type == "id":
+        id = input("ID for search: ")
+        print("\n")
+        with open(filename, 'r', newline='') as f:
+            csv_list = csv.reader(f)
+            for line in csv_list:
+                if not line:
+                    continue
 
+                if line[0] == id:
+                    if line[1] == 'resistor':
+                        current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]),float(line[6]))
 
+                    elif line[1] == 'capacitor':
+                        current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+
+                    elif line[1] == 'transistor':
+                        current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+                    print(current)
+                    print(
+                        "----------------------------------------------------------------------------------------------------")
+                    return current
+
+    else:
+        raise ValueError
 
 
 
