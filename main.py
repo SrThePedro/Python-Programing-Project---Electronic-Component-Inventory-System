@@ -1,4 +1,7 @@
 import csv
+from platform import processor
+from tkinter.font import names
+
 
 class Component:
     def __init__(self, name, id ,price, number, c_type ):
@@ -162,10 +165,44 @@ t2 = Transistor("IRFZ44N", 302, 12, 40, "MOSFET", "TO-220")
 t3 = Transistor("BD140", 303, 4.5, 80, "PNP", "TO-126")
 
 
-def add_component(a):
+def add_component():
+    type = input("Select type (Resistor, Capacitor, Transistor) :")
+
+    if type == 'resistor':
+        name = input("Name: ")
+        id = input("ID: ")
+        price = input("Prcie: ")
+        number = input("Number: ")
+        resistance_value = input("Resistance Value: ")
+        power = input("Power Rating: ")
+
+        current = Resistor(name, int(id), float(price), int(number), (resistance_value), float(power))
+
+    elif type == 'capacitor':
+        name = input("Name: ")
+        id = input("ID: ")
+        price = input("Prcie: ")
+        number = input("Number: ")
+        capacitance = input("Capacitance: ")
+        voltage_rating = input("Voltage Rating: ")
+
+        current = Capacitor(name, int(id), float(price), int(number), capacitance, voltage_rating)
+
+    elif type == 'transistor':
+        name = input("Name: ")
+        id = input("ID: ")
+        price = input("Prcie: ")
+        number = input("Number: ")
+        type2 = input("Type: ")
+        package_type = input("Package Type: ")
+
+        current = Transistor(name, int(id), float(price), int(number), type2, package_type )
+
+
+
     with open('component_list.csv', 'a', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow(a)
+        writer.writerow(current)
 
 def print_list():
     with open('component_list.csv', 'r', newline='') as f:
@@ -175,15 +212,18 @@ def print_list():
                 continue
 
             if line[1] == 'resistor':
-                currrent = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), float(line[6]))
+                current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), float(line[6]))
 
             elif line[1] == 'capacitor':
-                currrent = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+                current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
 
             elif line[1] == 'transistor':
-                currrent = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-            print(currrent)
-print_list()
+                current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+            print(current)
+            print("----------------------------------------------------------------------------------------------------")
+
+
+
 
 
 
