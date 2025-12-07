@@ -1,89 +1,191 @@
+import csv
+
 class Component:
-    def __init__(self, name, id ,price, number ):
+    def __init__(self, name, id ,price, number, c_type ):
         self.name = name
         self.id = id
         self.price = price
         self.number = number
+        self.c_type = c_type
 
     @property
     def name(self):
-        return self.name
+        return self._name
 
     @name.setter
     def name(self, value):
-        self.name = value
+        self._name = value
 
     @property
     def id(self):
-        return self.id
+        return self._id
 
     @id.setter
     def id(self, value):
-        self.id = value
+        self._id = value
 
     @property
     def price(self):
-        return self.price
+        return self._price
 
     @price.setter
     def price(self, value):
-        if type(value) == int and value >= 0:
-            self.price = value
+        if isinstance(value, (int, float)) and value >= 0:
+            self._price = value
         else:
             raise TypeError
 
     @property
     def number(self):
-        return self.number
+        return self._number
 
     @number.setter
     def number(self, value):
         if type(value) == int:
-            self.number = value
+            self._number = value
         else:
             raise TypeError
 
+    @property
+    def c_type(self):
+        return self._c_type
+
+    @c_type.setter
+    def c_type(self, value):
+        self._c_type = value
+
 class Resistor(Component):
     def __init__(self,name,id,price,number,resistance_value,power_rating):
-        super().__init__(name,id,price,number)
+        super().__init__(name,id,price,number,'resistor')
         self.resistance_value = resistance_value
         self.power_rating = power_rating
+        #self.c_type = "resistor"
 
     @property
     def resistance_value(self):
-        return self.resistance_value
+        return self._resistance_value
 
     @resistance_value.setter
     def resistance_value(self, value):
-        self.resistance_value = value
+        self._resistance_value = value
 
     @property
     def power_rating(self):
-        return self.power_rating
+        return self._power_rating
 
     @power_rating.setter
     def power_rating(self,value):
-        self.power_rating = value
+        self._power_rating = value
+
+    def __iter__(self):
+        yield self.id
+        yield self.c_type
+        yield self.name
+        yield self.price
+        yield self.number
+        yield self.resistance_value
+        yield self.power_rating
 
     def __str__(self):
-        return f"{self.id} {self.name} {self.price} {self.number} {self.resistance_value} {self.power_rating}"
+        return f"{self.id} {self.c_type} {self.name} {self.price}$ {self.number} {self.resistance_value} {self.power_rating}W"
 
 class Capacitor(Component):
     def __init__(self,name,id,price,number,capacitance,voltage_rating):
-        super().__init__(name,id,price,number)
+        super().__init__(name,id,price,number, 'capacitor')
         self.capacitance = capacitance
         self.voltage_rating = voltage_rating
 
     @property
     def capacitance(self):
-        return self.capacitance
+        return self._capacitance
 
     @capacitance.setter
     def capacitance(self,value):
-        self.capacitance = value
+        self._capacitance = value
+
+    def __iter__(self):
+        yield self.id
+        yield self.c_type
+        yield self.name
+        yield self.price
+        yield self.number
+        yield self.capacitance
+        yield self.voltage_rating
 
     def __str__(self):
-        return f"{self.id} {self.name} {self.price} {self.number} {self.capacitance} {self.voltage_rating}"
+        return f"{self.id} {self.c_type} {self.name} {self.price}$ {self.number} {self.capacitance}uF {self.voltage_rating}"
+
+class Transistor(Component):
+    def __init__(self, name, id, price, number, type, package_type):
+        super().__init__(name,id,price,number, 'transistor')
+        self.type = type
+        self.package_type = package_type
+
+    @property
+    def type(self):
+        return self._type
+
+    @type.setter
+    def type(self, value):
+        self._type = value
+
+    @property
+    def package_type(self):
+        return self._package_type
+
+    @package_type.setter
+    def package_type(self, value):
+        self._package_type = value
+
+    def __iter__(self):
+        yield self.id
+        yield self.c_type
+        yield self.name
+        yield self.price
+        yield self.number
+        yield self.type
+        yield self.package_type
+
+    def __str__(self):
+        return f"{self.id} {self.c_type} {self.name} {self.price}$ {self.number} {self.type} {self.package_type}"
+
+r1 = Resistor("10k Metal Film", 102, 1, 500, 10000, 0.25)
+r2 = Resistor("330R Carbon Film", 101, 1, 1000, 330, 0.25)
+r3 = Resistor("5R6 Power Resistor", 103, 15, 50, 5.6, 5)
+
+c1 = Capacitor("Electrolytic" , 201, 3.5, 200, 1000, 16)
+c2 = Capacitor("Ceramic", 202, 0.25, 2000, 0.1 , 50)
+c3 = Capacitor("Low ESR", 203, 8, 100, 470, 35)
+
+t1 = Transistor("BC547", 301, 1.5 , 300, "NPN", "TO-92")
+t2 = Transistor("IRFZ44N", 302, 12, 40, "MOSFET", "TO-220")
+t3 = Transistor("BD140", 303, 4.5, 80, "PNP", "TO-126")
+
+
+def add_component(a):
+    with open('component_list.csv', 'a', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(a)
+
+def print_list():
+    with open('component_list.csv', 'r', newline='') as f:
+        csv_list = csv.reader(f)
+        for line in csv_list:
+            if not line:
+                continue
+
+            if line[1] == 'resistor':
+                currrent = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), float(line[6]))
+
+            elif line[1] == 'capacitor':
+                currrent = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+
+            elif line[1] == 'transistor':
+                currrent = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+            print(currrent)
+print_list()
+
+
 
 
 

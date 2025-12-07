@@ -1,0 +1,10 @@
+
+102,resistor,10k Metal Film,1,500,10000,0.25
+101,resistor,330R Carbon Film,1,1000,330,0.25
+103,resistor,5R6 Power Resistor,15,50,5.6,5
+201,capacitor,Electrolytic,3.5,200,1000,16
+202,capacitor,Ceramic,0.25,2000,0.1,50
+203,capacitor,Low ESR,8,100,470,35
+301,transistor,BC547,1.5,300,NPN,TO-92
+302,transistor,IRFZ44N,12,40,MOSFET,TO-220
+303,transistor,BD140,4.5,80,PNP,TO-126
