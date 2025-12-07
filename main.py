@@ -1,4 +1,5 @@
 import csv
+from importlib.resources import contents
 from platform import processor
 from tkinter.font import names
 
@@ -62,7 +63,7 @@ class Resistor(Component):
         super().__init__(name,id,price,number,'resistor')
         self.resistance_value = resistance_value
         self.power_rating = power_rating
-        #self.c_type = "resistor"
+
 
     @property
     def resistance_value(self):
@@ -165,7 +166,7 @@ t2 = Transistor("IRFZ44N", 302, 12, 40, "MOSFET", "TO-220")
 t3 = Transistor("BD140", 303, 4.5, 80, "PNP", "TO-126")
 
 
-def add_component():
+def add_component(filename):
     type = input("Select type (Resistor, Capacitor, Transistor) :")
 
     if type == 'resistor':
@@ -202,12 +203,12 @@ def add_component():
         print("Invalid")
 
 
-    with open('component_list.csv', 'a', newline='') as f:
+    with open(filename, 'a', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(current)
 
-def print_list():
-    with open('component_list.csv', 'r', newline='') as f:
+def print_list(filename):
+    with open(filename, 'r', newline='') as f:
         csv_list = csv.reader(f)
         for line in csv_list:
             if not line:
@@ -224,12 +225,12 @@ def print_list():
             print(current)
             print("----------------------------------------------------------------------------------------------------")
 
-def search_item():
+def search_item(filename):
     type = input("Select type(id or name): ")
     if type == "name":
         name = input("Name for search: ")
         print("\n")
-        with open('component_list.csv', 'r', newline='') as f:
+        with open(filename, 'r', newline='') as f:
             csv_list = csv.reader(f)
             for line in csv_list:
                 if not line:
@@ -247,6 +248,16 @@ def search_item():
                     print(current)
                     print("----------------------------------------------------------------------------------------------------")
                     return current
+
+
+
+
+
+
+
+
+
+
 
 
 
