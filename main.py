@@ -2,6 +2,7 @@ import csv
 from importlib.resources import contents
 from platform import processor
 from tkinter.font import names
+from webbrowser import register_X_browsers
 
 
 class Component:
@@ -208,22 +209,43 @@ def add_component(filename):
         writer.writerow(current)
 
 def print_list(filename):
+    rs = []
+    cp = []
+    tr = []
+
     with open(filename, 'r', newline='') as f:
         csv_list = csv.reader(f)
-        for line in csv_list:
-            if not line:
-                continue
+    for line in csv_list:
+        if not line:
+            continue
 
-            if line[1] == 'resistor':
-                current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), float(line[6]))
+        if line[1] == 'resistor':
+            current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), float(line[6]))
+            rs.append(current)
 
-            elif line[1] == 'capacitor':
-                current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+        elif line[1] == 'capacitor':
+            current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+            cp.append(current)
 
-            elif line[1] == 'transistor':
-                current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-            print(current)
-            print("----------------------------------------------------------------------------------------------------")
+        elif line[1] == 'transistor':
+            current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+            tr.append(current)
+
+    rs.sort(lambda x: x.id)
+    cp.sort(lambda x: x.id)
+    tr.sort(lambda x: x.id)
+
+    for i in rs:
+        print(i)
+        print("-"*30)
+
+    for i in cp:
+        print(i)
+        print("-" * 30)
+
+    for i in tr:
+        print(i)
+        print("-" * 30)
 
 def search_item(filename):
     type = input("Select type(id or name): ")
@@ -273,6 +295,9 @@ def search_item(filename):
 
     else:
         raise ValueError
+
+
+
 
 
 
