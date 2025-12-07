@@ -92,7 +92,7 @@ class Resistor(Component):
         yield self.power_rating
 
     def __str__(self):
-        return f"{self.id} {self.c_type} {self.name} {self.price}$ {self.number} {self.resistance_value} {self.power_rating}W"
+        return f"{self.id:^5} | {self.c_type:^12} | {self.name:^20} | {self.price:^8} | {self.number:^8} | {self.resistance_value:^10} | {self.power_rating:^8}"
 
 class Capacitor(Component):
     def __init__(self,name,id,price,number,capacitance,voltage_rating):
@@ -118,7 +118,7 @@ class Capacitor(Component):
         yield self.voltage_rating
 
     def __str__(self):
-        return f"{self.id} {self.c_type} {self.name} {self.price}$ {self.number} {self.capacitance}uF {self.voltage_rating}"
+        return f"{self.id:^5} | {self.c_type:^12} | {self.name:^20} | {self.price:^8} | {self.number:^8} | {self.capacitance:^10} | {self.voltage_rating:^8}"
 
 class Transistor(Component):
     def __init__(self, name, id, price, number, type, package_type):
@@ -152,7 +152,7 @@ class Transistor(Component):
         yield self.package_type
 
     def __str__(self):
-        return f"{self.id} {self.c_type} {self.name} {self.price}$ {self.number} {self.type} {self.package_type}"
+        return f"{self.id:^5} | {self.c_type:^12} | {self.name:^20} | {self.price:^8} | {self.number:^8} | {self.type:^10} | {self.package_type:^8}"
 
 r1 = Resistor("10k Metal Film", 102, 1, 500, 10000, 0.25)
 r2 = Resistor("330R Carbon Film", 101, 1, 1000, 330, 0.25)
@@ -215,37 +215,41 @@ def print_list(filename):
 
     with open(filename, 'r', newline='') as f:
         csv_list = csv.reader(f)
-    for line in csv_list:
-        if not line:
-            continue
+        for line in csv_list:
+            if not line:
+                continue
 
-        if line[1] == 'resistor':
-            current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), float(line[6]))
-            rs.append(current)
+            if line[1] == 'resistor':
+                current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), float(line[6]))
+                rs.append(current)
 
-        elif line[1] == 'capacitor':
-            current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-            cp.append(current)
+            elif line[1] == 'capacitor':
+                current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+                cp.append(current)
 
-        elif line[1] == 'transistor':
-            current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-            tr.append(current)
+            elif line[1] == 'transistor':
+                current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+                tr.append(current)
 
-    rs.sort(lambda x: x.id)
-    cp.sort(lambda x: x.id)
-    tr.sort(lambda x: x.id)
+        rs.sort(key=lambda x: x.id)
+        cp.sort(key=lambda x: x.id)
+        tr.sort(key=lambda x: x.id)
 
-    for i in rs:
-        print(i)
-        print("-"*30)
+        print(f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'SPEC 1':^10} | {'SPEC 2':^8}")
+        for i in rs:
+            print(i)
 
-    for i in cp:
-        print(i)
-        print("-" * 30)
 
-    for i in tr:
-        print(i)
-        print("-" * 30)
+        for i in cp:
+            print(i)
+
+
+        for i in tr:
+            print(i)
+
+        print("\n\n")
+        input("Ana menüye dönmek için Enter tuşuna basınız...")
+        print("\n\n")
 
 def search_item(filename):
     type = input("Select type(id or name): ")
@@ -295,6 +299,52 @@ def search_item(filename):
 
     else:
         raise ValueError
+
+
+#arayuz
+
+while True:
+    print("=" * 50)
+    print(f"{'ELECTRNOIC COMPONENT MANAGEMENT SYSTEM':^50}") # Ortalar
+    print("=" * 50)
+
+    print("\n[ PROCESS ]")
+    print("-" * 50)
+    print(" 1 | Show List")
+    print(" 2 | Add Component")
+    print(" 3 | Sub Component")
+    print(" 4 | Search Component")
+    print(" 5 | Check Up")
+    print("-" * 50)
+    print(" Q | Quit")
+    print("-" * 50)
+
+    proces = input("Proces: ")
+
+    if proces == '1':
+        print_list("component_list.csv")
+
+    elif proces == '2':
+        add_component("component_list.csv")
+
+    elif proces == '3':
+        pass
+
+    elif proces == '4':
+        search_item("component_list.csv")
+
+    elif proces == '5':
+        pass
+
+    elif proces == 'Q':
+        break
+
+    else:
+        print("Invalid Proces.")
+
+
+
+
 
 
 
