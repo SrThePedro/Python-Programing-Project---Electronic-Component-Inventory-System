@@ -198,6 +198,8 @@ def add_component():
 
         current = Transistor(name, int(id), float(price), int(number), type2, package_type )
 
+    else:
+        print("Invalid")
 
 
     with open('component_list.csv', 'a', newline='') as f:
@@ -222,7 +224,29 @@ def print_list():
             print(current)
             print("----------------------------------------------------------------------------------------------------")
 
+def search_item():
+    type = input("Select type(id or name): ")
+    if type == "name":
+        name = input("Name for search: ")
+        print("\n")
+        with open('component_list.csv', 'r', newline='') as f:
+            csv_list = csv.reader(f)
+            for line in csv_list:
+                if not line:
+                    continue
 
+                if line[2] == name:
+                    if line[1] == 'resistor':
+                        current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), float(line[6]))
+
+                    elif line[1] == 'capacitor':
+                        current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+
+                    elif line[1] == 'transistor':
+                        current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+                    print(current)
+                    print("----------------------------------------------------------------------------------------------------")
+                    return current
 
 
 
