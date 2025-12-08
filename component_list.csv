@@ -8,3 +8,4 @@
 301,transistor,BC547,1.5,300,NPN,TO-92
 302,transistor,IRFZ44N,12,40,MOSFET,TO-220
 303,transistor,BD140,4.5,80,PNP,TO-126
+204,capacitor,High ESR,0.75,200,0.5,30

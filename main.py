@@ -271,8 +271,13 @@ def search_item(filename):
 
                     elif line[1] == 'transistor':
                         current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+                    print("-"*100)
+                    print(f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'SPEC 1':^10} | {'SPEC 2':^8}")
                     print(current)
-                    print("----------------------------------------------------------------------------------------------------")
+                    print("-"*100)
+                    print("\n\n")
+                    input("Ana menüye dönmek için Enter tuşuna basınız...")
+                    print("\n\n")
                     return current
     elif type == "id":
         id = input("ID for search: ")
@@ -292,10 +297,15 @@ def search_item(filename):
 
                     elif line[1] == 'transistor':
                         current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+                    print("-"*100)
+                    print( f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'SPEC 1':^10} | {'SPEC 2':^8}")
                     print(current)
-                    print(
-                        "----------------------------------------------------------------------------------------------------")
+                    print("-"*100)
+                    print("\n\n")
+                    input("Ana menüye dönmek için Enter tuşuna basınız...")
+                    print("\n\n")
                     return current
+
 
     else:
         raise ValueError
