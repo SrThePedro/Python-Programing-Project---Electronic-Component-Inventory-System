@@ -254,7 +254,7 @@ def print_list(filename):
 def search_item(filename):
     type = input("Select type(id or name): ")
     if type == "name":
-        name = input("Name for search: ")
+        name = input("Name: ")
         print("\n")
         with open(filename, 'r', newline='') as f:
             csv_list = csv.reader(f)
@@ -280,7 +280,7 @@ def search_item(filename):
                     print("\n\n")
                     return current
     elif type == "id":
-        id = input("ID for search: ")
+        id = input("ID: ")
         print("\n")
         with open(filename, 'r', newline='') as f:
             csv_list = csv.reader(f)
@@ -310,6 +310,8 @@ def search_item(filename):
     else:
         raise ValueError
 
+def delete_component(filename):
+    pass
 
 #arayuz
 
