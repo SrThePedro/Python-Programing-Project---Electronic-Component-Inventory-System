@@ -1,9 +1,4 @@
 import csv
-from importlib.resources import contents
-from platform import processor
-from tkinter.font import names
-from webbrowser import register_X_browsers
-
 
 class Component:
     def __init__(self, name, id ,price, number, c_type ):
