@@ -243,13 +243,13 @@ def print_list(filename):
             print(i)
 
         print("\n\n")
-        input("Ana menüye dönmek için Enter tuşuna basınız...")
+        input("Press Enter to return to the main menu...")
         print("\n\n")
 
 def search_item(filename):
     type = input("Select type(id or name): ")
     if type == "name":
-        name = input("Name: ")
+        name = input("Name for search: ")
         print("\n")
         with open(filename, 'r', newline='') as f:
             csv_list = csv.reader(f)
@@ -271,11 +271,11 @@ def search_item(filename):
                     print(current)
                     print("-"*100)
                     print("\n\n")
-                    input("Ana menüye dönmek için Enter tuşuna basınız...")
+                    input("Press Enter to return to the main menu...")
                     print("\n\n")
                     return current
     elif type == "id":
-        id = input("ID: ")
+        id = input("ID for search: ")
         print("\n")
         with open(filename, 'r', newline='') as f:
             csv_list = csv.reader(f)
@@ -297,7 +297,7 @@ def search_item(filename):
                     print(current)
                     print("-"*100)
                     print("\n\n")
-                    input("Ana menüye dönmek için Enter tuşuna basınız...")
+                    input("Press Enter to return to the main menu...")
                     print("\n\n")
                     return current
 
@@ -306,7 +306,107 @@ def search_item(filename):
         raise ValueError
 
 def delete_component(filename):
-    pass
+    type = input("Select type(id or name): ")
+    trash_component = 0
+    if type == "name":
+        name = input("Name for delete: ")
+        print("\n")
+        with open(filename, 'r', newline='') as f:
+            csv_list = csv.reader(f)
+            for line in csv_list:
+                trash_component += 1
+                if not line:
+                    continue
+
+                if line[2] == name:
+                    if line[1] == 'resistor':
+                        current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]),
+                                           float(line[6]))
+
+                    elif line[1] == 'capacitor':
+                        current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+
+                    elif line[1] == 'transistor':
+                        current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+
+                    break
+
+    elif type == "id":
+        id = input("ID for delete: ")
+        print("\n")
+        with open(filename, 'r', newline='') as f:
+            csv_list = csv.reader(f)
+            for line in csv_list:
+                trash_component += 1
+                if not line:
+                    continue
+
+                if line[0] == id:
+                    if line[1] == 'resistor':
+                        current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]),float(line[6]))
+
+                    elif line[1] == 'capacitor':
+                        current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+
+                    elif line[1] == 'transistor':
+                        current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+
+                    break
+
+    print("-" * 100)
+    print(f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'SPEC 1':^10} | {'SPEC 2':^8}")
+    print(current)
+    print("-" * 100)
+    ans = input("\nAre you sure you want to delete this component? (y/n): ")
+    if ans == 'y':
+        rs = []
+        cp = []
+        tr = []
+        current_line = 0
+        with open(filename, 'r', newline='') as f:
+            csv_list = csv.reader(f)
+            for line in csv_list:
+                current_line += 1
+                if current_line == trash_component:
+                    continue
+
+                if not line:
+                    continue
+
+                if line[1] == 'resistor':
+                    current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), float(line[6]))
+                    rs.append(current)
+
+                elif line[1] == 'capacitor':
+                    current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+                    cp.append(current)
+
+                elif line[1] == 'transistor':
+                    current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+                    tr.append(current)
+
+            rs.sort(key=lambda x: x.id)
+            cp.sort(key=lambda x: x.id)
+            tr.sort(key=lambda x: x.id)
+
+        all_component = rs + cp + tr
+        with open(filename, 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerows(all_component)
+
+        print("\nThe component was deleted successfully.")
+        input("\nPress Enter to return to the main menu...")
+
+    elif ans == 'n':
+        input("\nPress Enter to return to the main menu...")
+
+    else:
+        print("Invalid selection")
+
+
+
+
+
 
 #arayuz
 
@@ -335,7 +435,7 @@ while True:
         add_component("component_list.csv")
 
     elif proces == '3':
-        pass
+        delete_component("component_list.csv")
 
     elif proces == '4':
         search_item("component_list.csv")
@@ -343,11 +443,12 @@ while True:
     elif proces == '5':
         pass
 
-    elif proces == 'Q':
+    elif proces == 'Q' or 'q':
         break
 
     else:
-        print("Invalid Proces.")
+        print("\nInvalid value.")
+        input("\nPress Enter to try again...")
 
 
 
