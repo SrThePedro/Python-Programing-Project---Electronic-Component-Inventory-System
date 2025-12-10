@@ -9,3 +9,4 @@
 302,transistor,IRFZ44N,12,40,MOSFET,TO-220
 303,transistor,BD140,4.5,80,PNP,TO-126
 204,capacitor,High ESR,0.75,200,0.5,30
+2900010,resistor,k,12.0,120,34,67.0
