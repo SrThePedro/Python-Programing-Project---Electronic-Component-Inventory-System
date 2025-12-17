@@ -4,3 +4,4 @@
 201,capacitor,Electrolytic,3.5,200,1000,16
 204,capacitor,High ESR,0.75,200,0.5,30
 301,transistor,BC547,1.5,300,NPN,TO-92
+310,transistor,BC650,2.0,99,NPC,TO-92

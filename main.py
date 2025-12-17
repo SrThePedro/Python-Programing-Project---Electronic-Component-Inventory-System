@@ -403,6 +403,58 @@ def delete_component(filename):
     else:
         print("Invalid selection")
 
+def check_up(filename):
+    rs = []
+    cp = []
+    tr = []
+
+    with open(filename, 'r', newline='') as f:
+        csv_list = csv.reader(f)
+        for line in csv_list:
+            if not line:
+                continue
+
+            if line[1] == 'resistor':
+                current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), float(line[6]))
+                rs.append(current)
+
+            elif line[1] == 'capacitor':
+                current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+                cp.append(current)
+
+            elif line[1] == 'transistor':
+                current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
+                tr.append(current)
+
+        rs.sort(key=lambda x: x.id)
+        cp.sort(key=lambda x: x.id)
+        tr.sort(key=lambda x: x.id)
+
+        urgent = []
+        for i in rs:
+            if i.number < 100:
+                urgent.append(i)
+
+        for i in cp:
+            if i.number < 100:
+                urgent.append(i)
+
+        for i in tr:
+            if i.number < 100:
+                urgent.append(i)
+
+        print(
+            f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'SPEC 1':^10} | {'SPEC 2':^8}")
+        for i in urgent:
+            print(i)
+
+
+        print("\n\n")
+        input("Press Enter to return to the main menu...")
+        print("\n\n")
+
+
+
 
 
 
@@ -441,7 +493,7 @@ while True:
         search_item("component_list.csv")
 
     elif proces == '5':
-        pass
+        check_up("component_list.csv")
 
     elif proces == 'Q' or 'q':
         break
