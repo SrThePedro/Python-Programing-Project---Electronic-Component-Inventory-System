@@ -1,11 +1,13 @@
 import csv
 
+
 class Component:
-    def __init__(self, name, id ,price, number, c_type ):
+    def __init__(self, name, id, price, number, min_limit, c_type):
         self.name = name
         self.id = id
         self.price = price
         self.number = number
+        self.min_limit = min_limit
         self.c_type = c_type
 
     @property
@@ -47,6 +49,17 @@ class Component:
             raise TypeError
 
     @property
+    def min_limit(self):
+        return self._min_limit
+
+    @min_limit.setter
+    def min_limit(self, value):
+        if type(value) == int:
+            self._min_limit = value
+        else:
+            raise TypeError
+
+    @property
     def c_type(self):
         return self._c_type
 
@@ -54,28 +67,19 @@ class Component:
     def c_type(self, value):
         self._c_type = value
 
+
 class Resistor(Component):
-    def __init__(self,name,id,price,number,resistance_value,power_rating):
-        super().__init__(name,id,price,number,'resistor')
-        self.resistance_value = resistance_value
-        self.power_rating = power_rating
-
+    def __init__(self, name, id, price, number, min_limit, details):
+        super().__init__(name, id, price, number, min_limit, 'resistor')
+        self.details = details
 
     @property
-    def resistance_value(self):
-        return self._resistance_value
+    def details(self):
+        return self._details
 
-    @resistance_value.setter
-    def resistance_value(self, value):
-        self._resistance_value = value
-
-    @property
-    def power_rating(self):
-        return self._power_rating
-
-    @power_rating.setter
-    def power_rating(self,value):
-        self._power_rating = value
+    @details.setter
+    def details(self, value):
+        self._details = value
 
     def __iter__(self):
         yield self.id
@@ -83,25 +87,25 @@ class Resistor(Component):
         yield self.name
         yield self.price
         yield self.number
-        yield self.resistance_value
-        yield self.power_rating
+        yield self.min_limit
+        yield self.details
 
     def __str__(self):
-        return f"{self.id:^5} | {self.c_type:^12} | {self.name:^20} | {self.price:^8} | {self.number:^8} | {self.resistance_value:^10} | {self.power_rating:^8}"
+        return f"{self.id:^5} | {self.c_type:^12} | {self.name:^20} | {self.price:^8} | {self.number:^8} | {self.min_limit:^6} | {self.details:<25}"
+
 
 class Capacitor(Component):
-    def __init__(self,name,id,price,number,capacitance,voltage_rating):
-        super().__init__(name,id,price,number, 'capacitor')
-        self.capacitance = capacitance
-        self.voltage_rating = voltage_rating
+    def __init__(self, name, id, price, number, min_limit, details):
+        super().__init__(name, id, price, number, min_limit, 'capacitor')
+        self.details = details
 
     @property
-    def capacitance(self):
-        return self._capacitance
+    def details(self):
+        return self._details
 
-    @capacitance.setter
-    def capacitance(self,value):
-        self._capacitance = value
+    @details.setter
+    def details(self, value):
+        self._details = value
 
     def __iter__(self):
         yield self.id
@@ -109,33 +113,25 @@ class Capacitor(Component):
         yield self.name
         yield self.price
         yield self.number
-        yield self.capacitance
-        yield self.voltage_rating
+        yield self.min_limit
+        yield self.details
 
     def __str__(self):
-        return f"{self.id:^5} | {self.c_type:^12} | {self.name:^20} | {self.price:^8} | {self.number:^8} | {self.capacitance:^10} | {self.voltage_rating:^8}"
+        return f"{self.id:^5} | {self.c_type:^12} | {self.name:^20} | {self.price:^8} | {self.number:^8} | {self.min_limit:^6} | {self.details:<25}"
+
 
 class Transistor(Component):
-    def __init__(self, name, id, price, number, type, package_type):
-        super().__init__(name,id,price,number, 'transistor')
-        self.type = type
-        self.package_type = package_type
+    def __init__(self, name, id, price, number, min_limit, details):
+        super().__init__(name, id, price, number, min_limit, 'transistor')
+        self.details = details
 
     @property
-    def type(self):
-        return self._type
+    def details(self):
+        return self._details
 
-    @type.setter
-    def type(self, value):
-        self._type = value
-
-    @property
-    def package_type(self):
-        return self._package_type
-
-    @package_type.setter
-    def package_type(self, value):
-        self._package_type = value
+    @details.setter
+    def details(self, value):
+        self._details = value
 
     def __iter__(self):
         yield self.id
@@ -143,342 +139,227 @@ class Transistor(Component):
         yield self.name
         yield self.price
         yield self.number
-        yield self.type
-        yield self.package_type
+        yield self.min_limit
+        yield self.details
 
     def __str__(self):
-        return f"{self.id:^5} | {self.c_type:^12} | {self.name:^20} | {self.price:^8} | {self.number:^8} | {self.type:^10} | {self.package_type:^8}"
-
-r1 = Resistor("10k Metal Film", 102, 1, 500, 10000, 0.25)
-r2 = Resistor("330R Carbon Film", 101, 1, 1000, 330, 0.25)
-r3 = Resistor("5R6 Power Resistor", 103, 15, 50, 5.6, 5)
-
-c1 = Capacitor("Electrolytic" , 201, 3.5, 200, 1000, 16)
-c2 = Capacitor("Ceramic", 202, 0.25, 2000, 0.1 , 50)
-c3 = Capacitor("Low ESR", 203, 8, 100, 470, 35)
-
-t1 = Transistor("BC547", 301, 1.5 , 300, "NPN", "TO-92")
-t2 = Transistor("IRFZ44N", 302, 12, 40, "MOSFET", "TO-220")
-t3 = Transistor("BD140", 303, 4.5, 80, "PNP", "TO-126")
+        return f"{self.id:^5} | {self.c_type:^12} | {self.name:^20} | {self.price:^8} | {self.number:^8} | {self.min_limit:^6} | {self.details:<25}"
 
 
 def add_component(filename):
-    type = input("Select type (Resistor, Capacitor, Transistor) :")
+    type_choice = input("Select type (Resistor, Capacitor, Transistor): ").lower()
 
-    if type == 'resistor':
+    if type_choice in ['resistor', 'capacitor', 'transistor']:
         name = input("Name: ")
-        id = input("ID: ")
-        price = input("Prcie: ")
+        id_val = input("ID: ")
+        price = input("Price: ")
         number = input("Number: ")
-        resistance_value = input("Resistance Value: ")
-        power = input("Power Rating: ")
+        min_limit = input("Min Limit Alert: ")
+        details = input("Details: ")
 
-        current = Resistor(name, int(id), float(price), int(number), (resistance_value), float(power))
-
-    elif type == 'capacitor':
-        name = input("Name: ")
-        id = input("ID: ")
-        price = input("Prcie: ")
-        number = input("Number: ")
-        capacitance = input("Capacitance: ")
-        voltage_rating = input("Voltage Rating: ")
-
-        current = Capacitor(name, int(id), float(price), int(number), capacitance, voltage_rating)
-
-    elif type == 'transistor':
-        name = input("Name: ")
-        id = input("ID: ")
-        price = input("Prcie: ")
-        number = input("Number: ")
-        type2 = input("Type: ")
-        package_type = input("Package Type: ")
-
-        current = Transistor(name, int(id), float(price), int(number), type2, package_type )
-
+        if type_choice == 'resistor':
+            current = Resistor(name, int(id_val), float(price), int(number), int(min_limit), details)
+        elif type_choice == 'capacitor':
+            current = Capacitor(name, int(id_val), float(price), int(number), int(min_limit), details)
+        elif type_choice == 'transistor':
+            current = Transistor(name, int(id_val), float(price), int(number), int(min_limit), details)
     else:
-        print("Invalid")
-
+        print("Invalid Type")
+        return
 
     with open(filename, 'a', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(current)
+    print("Component added successfully.")
+
 
 def print_list(filename):
-    rs = []
-    cp = []
-    tr = []
-
-    with open(filename, 'r', newline='') as f:
-        csv_list = csv.reader(f)
-        for line in csv_list:
-            if not line:
-                continue
-
-            if line[1] == 'resistor':
-                current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), float(line[6]))
-                rs.append(current)
-
-            elif line[1] == 'capacitor':
-                current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-                cp.append(current)
-
-            elif line[1] == 'transistor':
-                current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-                tr.append(current)
-
-        rs.sort(key=lambda x: x.id)
-        cp.sort(key=lambda x: x.id)
-        tr.sort(key=lambda x: x.id)
-
-        print(f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE(TL)':^8} | {'COUNT':^8} | {'SPEC 1':^10} | {'SPEC 2':^8}")
-        for i in rs:
-            print(i)
-
-
-        for i in cp:
-            print(i)
-
-
-        for i in tr:
-            print(i)
-
-        print("\n\n")
-        input("Press Enter to return to the main menu...")
-        print("\n\n")
-
-def search_item(filename):
-    type = input("Select type(id or name): ")
-    if type == "name":
-        name = input("Name for search: ")
-        print("\n")
+    components = []
+    try:
         with open(filename, 'r', newline='') as f:
             csv_list = csv.reader(f)
             for line in csv_list:
-                if not line:
-                    continue
-
-                if line[2] == name:
-                    if line[1] == 'resistor':
-                        current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), float(line[6]))
-
-                    elif line[1] == 'capacitor':
-                        current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-
-                    elif line[1] == 'transistor':
-                        current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-                    print("-"*100)
-                    print(f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'SPEC 1':^10} | {'SPEC 2':^8}")
-                    print(current)
-                    print("-"*100)
-                    print("\n\n")
-                    input("Press Enter to return to the main menu...")
-                    print("\n\n")
-                    return current
-    elif type == "id":
-        id = input("ID for search: ")
-        print("\n")
-        with open(filename, 'r', newline='') as f:
-            csv_list = csv.reader(f)
-            for line in csv_list:
-                if not line:
-                    continue
-
-                if line[0] == id:
-                    if line[1] == 'resistor':
-                        current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]),float(line[6]))
-
-                    elif line[1] == 'capacitor':
-                        current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-
-                    elif line[1] == 'transistor':
-                        current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-                    print("-"*100)
-                    print( f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'SPEC 1':^10} | {'SPEC 2':^8}")
-                    print(current)
-                    print("-"*100)
-                    print("\n\n")
-                    input("Press Enter to return to the main menu...")
-                    print("\n\n")
-                    return current
-
-
-    else:
-        raise ValueError
-
-def delete_component(filename):
-    type = input("Select type(id or name): ")
-    trash_component = 0
-    if type == "name":
-        name = input("Name for delete: ")
-        print("\n")
-        with open(filename, 'r', newline='') as f:
-            csv_list = csv.reader(f)
-            for line in csv_list:
-                trash_component += 1
-                if not line:
-                    continue
-
-                if line[2] == name:
-                    if line[1] == 'resistor':
-                        current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]),
-                                           float(line[6]))
-
-                    elif line[1] == 'capacitor':
-                        current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-
-                    elif line[1] == 'transistor':
-                        current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-
-                    break
-
-    elif type == "id":
-        id = input("ID for delete: ")
-        print("\n")
-        with open(filename, 'r', newline='') as f:
-            csv_list = csv.reader(f)
-            for line in csv_list:
-                trash_component += 1
-                if not line:
-                    continue
-
-                if line[0] == id:
-                    if line[1] == 'resistor':
-                        current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]),float(line[6]))
-
-                    elif line[1] == 'capacitor':
-                        current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-
-                    elif line[1] == 'transistor':
-                        current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-
-                    break
-
-    print("-" * 100)
-    print(f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'SPEC 1':^10} | {'SPEC 2':^8}")
-    print(current)
-    print("-" * 100)
-    ans = input("\nAre you sure you want to delete this component? (y/n): ")
-    if ans == 'y':
-        rs = []
-        cp = []
-        tr = []
-        current_line = 0
-        with open(filename, 'r', newline='') as f:
-            csv_list = csv.reader(f)
-            for line in csv_list:
-                current_line += 1
-                if current_line == trash_component:
-                    continue
-
                 if not line:
                     continue
 
                 if line[1] == 'resistor':
-                    current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), float(line[6]))
-                    rs.append(current)
-
+                    current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
                 elif line[1] == 'capacitor':
-                    current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-                    cp.append(current)
-
+                    current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
                 elif line[1] == 'transistor':
-                    current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-                    tr.append(current)
+                    current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
+                else:
+                    continue
 
-            rs.sort(key=lambda x: x.id)
-            cp.sort(key=lambda x: x.id)
-            tr.sort(key=lambda x: x.id)
+                components.append(current)
 
-        all_component = rs + cp + tr
-        with open(filename, 'w', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerows(all_component)
-
-        print("\nThe component was deleted successfully.")
-        input("\nPress Enter to return to the main menu...")
-
-    elif ans == 'n':
-        input("\nPress Enter to return to the main menu...")
-
-    else:
-        print("Invalid selection")
-
-def check_up(filename):
-    rs = []
-    cp = []
-    tr = []
-
-    with open(filename, 'r', newline='') as f:
-        csv_list = csv.reader(f)
-        for line in csv_list:
-            if not line:
-                continue
-
-            if line[1] == 'resistor':
-                current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), float(line[6]))
-                rs.append(current)
-
-            elif line[1] == 'capacitor':
-                current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-                cp.append(current)
-
-            elif line[1] == 'transistor':
-                current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), (line[5]), (line[6]))
-                tr.append(current)
-
-        rs.sort(key=lambda x: x.id)
-        cp.sort(key=lambda x: x.id)
-        tr.sort(key=lambda x: x.id)
-
-        urgent = []
-        for i in rs:
-            if i.number < 100:
-                urgent.append(i)
-
-        for i in cp:
-            if i.number < 100:
-                urgent.append(i)
-
-        for i in tr:
-            if i.number < 100:
-                urgent.append(i)
+        components.sort(key=lambda x: x.id)
 
         print(
-            f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'SPEC 1':^10} | {'SPEC 2':^8}")
-        for i in urgent:
+            f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE(TL)':^8} | {'COUNT':^8} | {'LIMIT':^6} | {'DETAILS':<25}")
+        print("-" * 97)
+        for i in components:
             print(i)
-
 
         print("\n\n")
         input("Press Enter to return to the main menu...")
         print("\n\n")
+    except FileNotFoundError:
+        print("File not found. Please add a component first.")
 
 
+def search_item(filename):
+    search_type = input("Select search type (id or name): ")
+    found = False
+
+    try:
+        with open(filename, 'r', newline='') as f:
+            csv_list = csv.reader(f)
+            header_printed = False
+
+            target = ""
+            if not found:
+                target = input(f"Enter {search_type}: ")
+                found = True
+
+            for line in csv_list:
+                if not line: continue
+
+                is_match = False
+                if search_type == "name" and line[2] == target: is_match = True
+                if search_type == "id" and line[0] == target: is_match = True
+
+                if is_match:
+                    if line[1] == 'resistor':
+                        current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
+                    elif line[1] == 'capacitor':
+                        current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
+                    elif line[1] == 'transistor':
+                        current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
+
+                    if not header_printed:
+                        print("-" * 97)
+                        print(
+                            f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'LIMIT':^6} | {'DETAILS':<25}")
+                        header_printed = True
+
+                    print(current)
+                    print("-" * 97)
+                    input("\nPress Enter to return...")
+                    return current
+
+            print("Item not found.")
+            input("Press Enter...")
+
+    except FileNotFoundError:
+        print("File not found.")
 
 
+def withdraw_component(filename):
+    target_id = input("Enter ID to withdraw: ")
+
+    updated_rows = []
+    found = False
+    alert_msg = ""
+
+    try:
+        with open(filename, 'r', newline='') as f:
+            csv_list = csv.reader(f)
+            for line in csv_list:
+                if not line: continue
+
+                if line[0] == target_id:
+                    found = True
+                    current_count = int(line[4])
+                    min_limit = int(line[5])
+                    name = line[2]
+
+                    print(f"\nProduct Found: {name}")
+                    print(f"Current Stock: {current_count}")
+                    print(f"Min Limit    : {min_limit}")
+
+                    withdraw_amount = int(input("Enter quantity to withdraw: "))
+
+                    if withdraw_amount <= current_count:
+                        new_count = current_count - withdraw_amount
+                        line[4] = new_count
+                        print(f"\nSuccess! Withdrawn: {withdraw_amount}. New Stock: {new_count}")
+
+                        if new_count < min_limit:
+                            alert_msg = f"\n!!! WARNING: Stock for '{name}' is below limit! (Current: {new_count}, Limit: {min_limit}) !!!"
+                    else:
+                        print("\nError: Not enough stock!")
+
+                updated_rows.append(line)
+
+        if found:
+            with open(filename, 'w', newline='') as f:
+                writer = csv.writer(f)
+                writer.writerows(updated_rows)
+
+            if alert_msg:
+                print(alert_msg)
+        else:
+            print("\nID not found.")
+
+        input("\nPress Enter to return to the main menu...")
+
+    except FileNotFoundError:
+        print("File not found.")
 
 
+def check_up(filename):
+    urgent = []
+    try:
+        with open(filename, 'r', newline='') as f:
+            csv_list = csv.reader(f)
+            for line in csv_list:
+                if not line: continue
 
+                if line[1] == 'resistor':
+                    current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
+                elif line[1] == 'capacitor':
+                    current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
+                elif line[1] == 'transistor':
+                    current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
+                else:
+                    continue
 
-#arayuz
+                if current.number < current.min_limit:
+                    urgent.append(current)
+
+        urgent.sort(key=lambda x: x.id)
+
+        print(
+            f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'LIMIT':^6} | {'DETAILS':<25}")
+        print("-" * 97)
+        for i in urgent:
+            print(i)
+
+        print("\n\n")
+        input("Press Enter to return to the main menu...")
+        print("\n\n")
+    except FileNotFoundError:
+        print("File not found.")
+
 
 while True:
     print("=" * 50)
-    print(f"{'ELECTRNOIC COMPONENT MANAGEMENT SYSTEM':^50}") # Ortalar
+    print(f"{'ELECTRONIC COMPONENT MANAGEMENT SYSTEM':^50}")
     print("=" * 50)
 
     print("\n[ PROCESS ]")
     print("-" * 50)
     print(" 1 | Show List")
     print(" 2 | Add Component")
-    print(" 3 | Sub Component")
+    print(" 3 | Withdraw Component")
     print(" 4 | Search Component")
-    print(" 5 | Check Up")
+    print(" 5 | Check Up (Low Stock)")
     print("-" * 50)
     print(" Q | Quit")
     print("-" * 50)
 
-    proces = input("Proces: ")
+    proces = input("Process: ").lower()
 
     if proces == '1':
         print_list("component_list.csv")
@@ -487,7 +368,7 @@ while True:
         add_component("component_list.csv")
 
     elif proces == '3':
-        delete_component("component_list.csv")
+        withdraw_component("component_list.csv")
 
     elif proces == '4':
         search_item("component_list.csv")
@@ -495,30 +376,9 @@ while True:
     elif proces == '5':
         check_up("component_list.csv")
 
-    elif proces == 'Q' or 'q':
+    elif proces == 'q':
         break
 
     else:
         print("\nInvalid value.")
         input("\nPress Enter to try again...")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
