@@ -230,7 +230,7 @@ def print_list(filename):
         cp.sort(key=lambda x: x.id)
         tr.sort(key=lambda x: x.id)
 
-        print(f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'SPEC 1':^10} | {'SPEC 2':^8}")
+        print(f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE(TL)':^8} | {'COUNT':^8} | {'SPEC 1':^10} | {'SPEC 2':^8}")
         for i in rs:
             print(i)
 
