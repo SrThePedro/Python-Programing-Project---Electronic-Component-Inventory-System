@@ -1,85 +1,14 @@
 import csv
 
-
 class Component:
-    def __init__(self, name, id, price, number, min_limit, c_type):
+    def __init__(self, name, id, price, number, min_limit, c_type, details):
         self.name = name
         self.id = id
         self.price = price
         self.number = number
         self.min_limit = min_limit
         self.c_type = c_type
-
-    @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, value):
-        self._name = value
-
-    @property
-    def id(self):
-        return self._id
-
-    @id.setter
-    def id(self, value):
-        self._id = value
-
-    @property
-    def price(self):
-        return self._price
-
-    @price.setter
-    def price(self, value):
-        if isinstance(value, (int, float)) and value >= 0:
-            self._price = value
-        else:
-            raise TypeError
-
-    @property
-    def number(self):
-        return self._number
-
-    @number.setter
-    def number(self, value):
-        if type(value) == int:
-            self._number = value
-        else:
-            raise TypeError
-
-    @property
-    def min_limit(self):
-        return self._min_limit
-
-    @min_limit.setter
-    def min_limit(self, value):
-        if type(value) == int:
-            self._min_limit = value
-        else:
-            raise TypeError
-
-    @property
-    def c_type(self):
-        return self._c_type
-
-    @c_type.setter
-    def c_type(self, value):
-        self._c_type = value
-
-
-class Resistor(Component):
-    def __init__(self, name, id, price, number, min_limit, details):
-        super().__init__(name, id, price, number, min_limit, 'resistor')
         self.details = details
-
-    @property
-    def details(self):
-        return self._details
-
-    @details.setter
-    def details(self, value):
-        self._details = value
 
     def __iter__(self):
         yield self.id
@@ -94,83 +23,67 @@ class Resistor(Component):
         return f"{self.id:^5} | {self.c_type:^12} | {self.name:^20} | {self.price:^8} | {self.number:^8} | {self.min_limit:^6} | {self.details:<25}"
 
 
-class Capacitor(Component):
-    def __init__(self, name, id, price, number, min_limit, details):
-        super().__init__(name, id, price, number, min_limit, 'capacitor')
-        self.details = details
-
-    @property
-    def details(self):
-        return self._details
-
-    @details.setter
-    def details(self, value):
-        self._details = value
-
-    def __iter__(self):
-        yield self.id
-        yield self.c_type
-        yield self.name
-        yield self.price
-        yield self.number
-        yield self.min_limit
-        yield self.details
-
-    def __str__(self):
-        return f"{self.id:^5} | {self.c_type:^12} | {self.name:^20} | {self.price:^8} | {self.number:^8} | {self.min_limit:^6} | {self.details:<25}"
+def get_valid_number(prompt, type_func=int):
+    while True:
+        try:
+            value = input(prompt)
+            converted_value = type_func(value)
+            if converted_value < 0:
+                print("Error: Value cannot be negative.")
+                continue
+            return converted_value
+        except ValueError:
+            print(f"Error: Invalid input. Please enter a valid {'integer' if type_func is int else 'number'}.")
 
 
-class Transistor(Component):
-    def __init__(self, name, id, price, number, min_limit, details):
-        super().__init__(name, id, price, number, min_limit, 'transistor')
-        self.details = details
-
-    @property
-    def details(self):
-        return self._details
-
-    @details.setter
-    def details(self, value):
-        self._details = value
-
-    def __iter__(self):
-        yield self.id
-        yield self.c_type
-        yield self.name
-        yield self.price
-        yield self.number
-        yield self.min_limit
-        yield self.details
-
-    def __str__(self):
-        return f"{self.id:^5} | {self.c_type:^12} | {self.name:^20} | {self.price:^8} | {self.number:^8} | {self.min_limit:^6} | {self.details:<25}"
+def is_id_unique(filename, check_id):
+    try:
+        with open(filename, 'r', newline='') as f:
+            csv_list = csv.reader(f)
+            for line in csv_list:
+                if not line: continue
+                if line[0] == str(check_id):
+                    return False
+        return True
+    except FileNotFoundError:
+        return True
+    except PermissionError:
+        return True
 
 
 def add_component(filename):
-    type_choice = input("Select type (Resistor, Capacitor, Transistor): ").lower()
+    print("\n--- Add New Component ---")
 
-    if type_choice in ['resistor', 'capacitor', 'transistor']:
-        name = input("Name: ")
-        id_val = input("ID: ")
-        price = input("Price: ")
-        number = input("Number: ")
-        min_limit = input("Min Limit Alert: ")
-        details = input("Details: ")
-
-        if type_choice == 'resistor':
-            current = Resistor(name, int(id_val), float(price), int(number), int(min_limit), details)
-        elif type_choice == 'capacitor':
-            current = Capacitor(name, int(id_val), float(price), int(number), int(min_limit), details)
-        elif type_choice == 'transistor':
-            current = Transistor(name, int(id_val), float(price), int(number), int(min_limit), details)
-    else:
-        print("Invalid Type")
+    c_type = input("Component Type (e.g. Resistor, IC): ").upper()
+    if not c_type:
+        print("Type cannot be empty.")
         return
 
-    with open(filename, 'a', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow(current)
-    print("Component added successfully.")
+    name = input("Name: ")
+
+    while True:
+        id_val = get_valid_number("ID: ", int)
+        if is_id_unique(filename, id_val):
+            break
+        else:
+            print(f"Error: ID {id_val} already exists! Please use a different ID.")
+
+    price = get_valid_number("Price: ", float)
+    number = get_valid_number("Number (Stock): ", int)
+    min_limit = get_valid_number("Min Limit Alert: ", int)
+    details = input("Details: ")
+
+    current = Component(name, id_val, price, number, min_limit, c_type, details)
+
+    try:
+        with open(filename, 'a', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(current)
+        print(f"\nSuccess! Added {c_type}: {name}")
+    except PermissionError:
+        print("\nERROR: Permission denied! Please close the CSV file if it is open in Excel.")
+    except Exception as e:
+        print(f"\nAn unexpected error occurred: {e}")
 
 
 def print_list(filename):
@@ -179,22 +92,30 @@ def print_list(filename):
         with open(filename, 'r', newline='') as f:
             csv_list = csv.reader(f)
             for line in csv_list:
-                if not line:
-                    continue
+                if not line: continue
 
-                if line[1] == 'resistor':
-                    current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
-                elif line[1] == 'capacitor':
-                    current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
-                elif line[1] == 'transistor':
-                    current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
-                else:
-                    continue
+                try:
+                    current = Component(
+                        name=line[2],
+                        id=int(line[0]),
+                        price=float(line[3]),
+                        number=int(line[4]),
+                        min_limit=int(line[5]),
+                        c_type=line[1],
+                        details=line[6]
+                    )
+                    components.append(current)
+                except (ValueError, IndexError):
+                    print(f"Warning: Skipping corrupt data line -> {line}")
 
-                components.append(current)
+        if not components:
+            print("\nList is empty.")
+            input("Press Enter...")
+            return
 
         components.sort(key=lambda x: x.id)
 
+        print("-" * 97)
         print(
             f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE(TL)':^8} | {'COUNT':^8} | {'LIMIT':^6} | {'DETAILS':<25}")
         print("-" * 97)
@@ -203,56 +124,64 @@ def print_list(filename):
 
         print("\n\n")
         input("Press Enter to return to the main menu...")
-        print("\n\n")
+
     except FileNotFoundError:
         print("File not found. Please add a component first.")
+    except PermissionError:
+        print("\nERROR: Permission denied! Please close the CSV file if it is open in Excel.")
 
 
 def search_item(filename):
-    search_type = input("Select search type (id or name): ")
-    found = False
+    search_type = input("Select search type (id or name): ").lower()
+
+    if search_type not in ['id', 'name']:
+        print("Invalid search type.")
+        return
 
     try:
         with open(filename, 'r', newline='') as f:
             csv_list = csv.reader(f)
             header_printed = False
-
-            target = ""
-            if not found:
-                target = input(f"Enter {search_type}: ")
-                found = True
+            target = input(f"Enter {search_type}: ")
+            found_any = False
 
             for line in csv_list:
                 if not line: continue
 
-                is_match = False
-                if search_type == "name" and line[2] == target: is_match = True
-                if search_type == "id" and line[0] == target: is_match = True
+                try:
+                    is_match = False
+                    if search_type == "name" and line[2].lower() == target.lower(): is_match = True
+                    if search_type == "id" and line[0] == target: is_match = True
 
-                if is_match:
-                    if line[1] == 'resistor':
-                        current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
-                    elif line[1] == 'capacitor':
-                        current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
-                    elif line[1] == 'transistor':
-                        current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
+                    if is_match:
+                        found_any = True
+                        current = Component(
+                            name=line[2], id=int(line[0]), price=float(line[3]),
+                            number=int(line[4]), min_limit=int(line[5]),
+                            c_type=line[1], details=line[6]
+                        )
 
-                    if not header_printed:
-                        print("-" * 97)
-                        print(
-                            f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'LIMIT':^6} | {'DETAILS':<25}")
-                        header_printed = True
+                        if not header_printed:
+                            print("-" * 97)
+                            print(
+                                f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE(TL)':^8} | {'COUNT':^8} | {'LIMIT':^6} | {'DETAILS':<25}")
+                            header_printed = True
 
-                    print(current)
-                    print("-" * 97)
-                    input("\nPress Enter to return...")
-                    return current
+                        print(current)
+                except (ValueError, IndexError):
+                    continue
 
-            print("Item not found.")
-            input("Press Enter...")
+            if found_any:
+                print("-" * 97)
+            else:
+                print("Item not found.")
+
+            input("\nPress Enter to return...")
 
     except FileNotFoundError:
         print("File not found.")
+    except PermissionError:
+        print("\nERROR: Permission denied! Please close the CSV file.")
 
 
 def withdraw_component(filename):
@@ -268,37 +197,42 @@ def withdraw_component(filename):
             for line in csv_list:
                 if not line: continue
 
-                if line[0] == target_id:
-                    found = True
-                    current_count = int(line[4])
-                    min_limit = int(line[5])
-                    name = line[2]
+                try:
+                    if line[0] == target_id:
+                        found = True
+                        current_count = int(line[4])
+                        min_limit = int(line[5])
+                        name = line[2]
 
-                    print(f"\nProduct Found: {name}")
-                    print(f"Current Stock: {current_count}")
-                    print(f"Min Limit    : {min_limit}")
+                        print(f"\nProduct Found: {name}")
+                        print(f"Current Stock: {current_count}")
 
-                    withdraw_amount = int(input("Enter quantity to withdraw: "))
+                        withdraw_amount = get_valid_number("Enter quantity to withdraw: ", int)
 
-                    if withdraw_amount <= current_count:
-                        new_count = current_count - withdraw_amount
-                        line[4] = new_count
-                        print(f"\nSuccess! Withdrawn: {withdraw_amount}. New Stock: {new_count}")
+                        if withdraw_amount <= current_count:
+                            new_count = current_count - withdraw_amount
+                            line[4] = new_count
+                            print(f"\nSuccess! Withdrawn: {withdraw_amount}. New Stock: {new_count}")
 
-                        if new_count < min_limit:
-                            alert_msg = f"\n!!! WARNING: Stock for '{name}' is below limit! (Current: {new_count}, Limit: {min_limit}) !!!"
-                    else:
-                        print("\nError: Not enough stock!")
+                            if new_count < min_limit:
+                                alert_msg = f"\n!!! WARNING: Stock for '{name}' is below limit! (Current: {new_count}, Limit: {min_limit}) !!!"
+                        else:
+                            print("\nError: Not enough stock!")
 
-                updated_rows.append(line)
+                    updated_rows.append(line)
+                except (ValueError, IndexError):
+                    updated_rows.append(line)
 
         if found:
-            with open(filename, 'w', newline='') as f:
-                writer = csv.writer(f)
-                writer.writerows(updated_rows)
+            try:
+                with open(filename, 'w', newline='') as f:
+                    writer = csv.writer(f)
+                    writer.writerows(updated_rows)
 
-            if alert_msg:
-                print(alert_msg)
+                if alert_msg:
+                    print(alert_msg)
+            except PermissionError:
+                print("\nCRITICAL ERROR: Could not save changes! File is open in another program.")
         else:
             print("\nID not found.")
 
@@ -306,6 +240,8 @@ def withdraw_component(filename):
 
     except FileNotFoundError:
         print("File not found.")
+    except PermissionError:
+        print("\nERROR: Permission denied! Please close the CSV file.")
 
 
 def check_up(filename):
@@ -316,29 +252,29 @@ def check_up(filename):
             for line in csv_list:
                 if not line: continue
 
-                if line[1] == 'resistor':
-                    current = Resistor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
-                elif line[1] == 'capacitor':
-                    current = Capacitor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
-                elif line[1] == 'transistor':
-                    current = Transistor(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[6])
-                else:
+                try:
+                    current = Component(
+                        name=line[2], id=int(line[0]), price=float(line[3]),
+                        number=int(line[4]), min_limit=int(line[5]),
+                        c_type=line[1], details=line[6]
+                    )
+                    if current.number < current.min_limit:
+                        urgent.append(current)
+                except (ValueError, IndexError):
                     continue
 
-                if current.number < current.min_limit:
-                    urgent.append(current)
-
-        urgent.sort(key=lambda x: x.id)
-
-        print(
-            f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'LIMIT':^6} | {'DETAILS':<25}")
-        print("-" * 97)
-        for i in urgent:
-            print(i)
+        if not urgent:
+            print("\nAll stock levels are sufficient.")
+        else:
+            urgent.sort(key=lambda x: x.id)
+            print(
+                f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'LIMIT':^6} | {'DETAILS':<25}")
+            print("-" * 97)
+            for i in urgent:
+                print(i)
 
         print("\n\n")
         input("Press Enter to return to the main menu...")
-        print("\n\n")
     except FileNotFoundError:
         print("File not found.")
 
@@ -381,4 +317,3 @@ while True:
 
     else:
         print("\nInvalid value.")
-        input("\nPress Enter to try again...")
