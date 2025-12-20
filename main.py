@@ -36,54 +36,75 @@ def get_valid_number(prompt, type_func=int):
             print(f"Error: Invalid input. Please enter a valid {'integer' if type_func is int else 'number'}.")
 
 
-def is_id_unique(filename, check_id):
+def add_component(filename):
+    print("\n--- Add Component / Update Stock ---")
+
+    target_id = get_valid_number("Enter ID: ", int)
+
+    updated_rows = []
+    found = False
+
     try:
         with open(filename, 'r', newline='') as f:
             csv_list = csv.reader(f)
             for line in csv_list:
                 if not line: continue
-                if line[0] == str(check_id):
-                    return False
-        return True
+
+                try:
+                    if line[0] == str(target_id):
+                        found = True
+                        name = line[2]
+                        current_stock = int(line[4])
+
+                        print(f"\nItem exists: {name}")
+                        print(f"Current Stock: {current_stock}")
+
+                        add_amount = get_valid_number("Amount to ADD to stock: ", int)
+                        new_stock = current_stock + add_amount
+                        line[4] = new_stock
+
+                        print(f"Stock updated! Old: {current_stock} -> New: {new_stock}")
+                        input("\nPress Enter to return to the main menu...")
+
+                    updated_rows.append(line)
+                except (ValueError, IndexError):
+                    updated_rows.append(line)
+
+        if found:
+            try:
+                with open(filename, 'w', newline='') as f:
+                    writer = csv.writer(f)
+                    writer.writerows(updated_rows)
+                return
+            except PermissionError:
+                print("\nCRITICAL ERROR: Could not update file! File is open in another program.")
+                return
+
     except FileNotFoundError:
-        return True
-    except PermissionError:
-        return True
+        pass
 
-
-def add_component(filename):
-    print("\n--- Add New Component ---")
+    print(f"\nID {target_id} not found. Creating new component record...")
 
     c_type = input("Component Type (e.g. Resistor, IC): ").upper()
     if not c_type:
-        print("Type cannot be empty.")
-        return
+        c_type = "UNKNOWN"
 
     name = input("Name: ")
-
-    while True:
-        id_val = get_valid_number("ID: ", int)
-        if is_id_unique(filename, id_val):
-            break
-        else:
-            print(f"Error: ID {id_val} already exists! Please use a different ID.")
-
     price = get_valid_number("Price: ", float)
-    number = get_valid_number("Number (Stock): ", int)
+    number = get_valid_number("Initial Stock: ", int)
     min_limit = get_valid_number("Min Limit Alert: ", int)
     details = input("Details: ")
 
-    current = Component(name, id_val, price, number, min_limit, c_type, details)
+    current = Component(name, target_id, price, number, min_limit, c_type, details)
 
     try:
         with open(filename, 'a', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(current)
-        print(f"\nSuccess! Added {c_type}: {name}")
+        print(f"\nSuccess! New item added: {name}")
+        input("Press Enter to return to the main menu...")
     except PermissionError:
-        print("\nERROR: Permission denied! Please close the CSV file if it is open in Excel.")
-    except Exception as e:
-        print(f"\nAn unexpected error occurred: {e}")
+        print("\nERROR: Permission denied! Please close the CSV file.")
 
 
 def print_list(filename):
@@ -164,7 +185,7 @@ def search_item(filename):
                         if not header_printed:
                             print("-" * 97)
                             print(
-                                f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE(TL)':^8} | {'COUNT':^8} | {'LIMIT':^6} | {'DETAILS':<25}")
+                                f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'LIMIT':^6} | {'DETAILS':<25}")
                             header_printed = True
 
                         print(current)
@@ -176,7 +197,7 @@ def search_item(filename):
             else:
                 print("Item not found.")
 
-            input("\nPress Enter to return...")
+            input("\nPress Enter to return to the main menu...")
 
     except FileNotFoundError:
         print("File not found.")
@@ -287,7 +308,7 @@ while True:
     print("\n[ PROCESS ]")
     print("-" * 50)
     print(" 1 | Show List")
-    print(" 2 | Add Component")
+    print(" 2 | Add Component / Update Stock")
     print(" 3 | Withdraw Component")
     print(" 4 | Search Component")
     print(" 5 | Check Up (Low Stock)")
