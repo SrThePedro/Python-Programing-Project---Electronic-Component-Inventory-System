@@ -1,5 +1,6 @@
 import csv
 
+
 class Component:
     def __init__(self, name, id, price, number, min_limit, c_type, details):
         self.name = name
@@ -300,6 +301,47 @@ def check_up(filename):
         print("File not found.")
 
 
+def delete_component(filename):
+    target_id = input("Enter ID to delete: ")
+
+    updated_rows = []
+    found = False
+
+    try:
+        with open(filename, 'r', newline='') as f:
+            csv_list = csv.reader(f)
+            for line in csv_list:
+                if not line:
+                    continue
+
+                try:
+                    if line[0] == target_id:
+                        found = True
+                        print(f"\nItem deleted: {line[2]} (ID: {target_id})")
+                        continue
+
+                    updated_rows.append(line)
+                except (ValueError, IndexError):
+                    updated_rows.append(line)
+
+        if found:
+            try:
+                with open(filename, 'w', newline='') as f:
+                    writer = csv.writer(f)
+                    writer.writerows(updated_rows)
+            except PermissionError:
+                print("\nCan not save changes! File is open in another program.")
+        else:
+            print("\nID not founded.")
+
+        input("\nPress Enter to return to the main menu...")
+
+    except FileNotFoundError:
+        print("File not founded.")
+    except PermissionError:
+        print("\nERROR: Permission denied! Please close the CSV file.")
+
+
 while True:
     print("=" * 50)
     print(f"{'ELECTRONIC COMPONENT MANAGEMENT SYSTEM':^50}")
@@ -312,6 +354,7 @@ while True:
     print(" 3 | Withdraw Component")
     print(" 4 | Search Component")
     print(" 5 | Check Up (Low Stock)")
+    print(" 6 | Delete Component")
     print("-" * 50)
     print(" Q | Quit")
     print("-" * 50)
@@ -332,6 +375,9 @@ while True:
 
     elif proces == '5':
         check_up("component_list.csv")
+
+    elif proces == '6':
+        delete_component("component_list.csv")
 
     elif proces == 'q':
         break
