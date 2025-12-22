@@ -24,17 +24,17 @@ class Component:
         return f"{self.id:^5} | {self.c_type:^12} | {self.name:^20} | {self.price:^8} | {self.number:^8} | {self.min_limit:^6} | {self.details:<25}"
 
 
-def get_valid_number(prompt, type_func=int):
+def get_valid_number(text, f_type=int):
     while True:
         try:
-            value = input(prompt)
-            converted_value = type_func(value)
+            value = input(text)
+            converted_value = f_type(value)
             if converted_value < 0:
                 print("Error: Value cannot be negative.")
                 continue
             return converted_value
         except ValueError:
-            print(f"Error: Invalid input. Please enter a valid {'integer' if type_func is int else 'number'}.")
+            print("Error: Invalid input. Please enter a valid value.")
 
 
 def add_component(filename):
@@ -42,14 +42,15 @@ def add_component(filename):
 
     target_id = get_valid_number("Enter ID: ", int)
 
-    updated_rows = []
+    updated_list = []
     found = False
 
     try:
         with open(filename, 'r', newline='') as f:
             csv_list = csv.reader(f)
             for line in csv_list:
-                if not line: continue
+                if not line:
+                    continue
 
                 try:
                     if line[0] == str(target_id):
@@ -60,40 +61,40 @@ def add_component(filename):
                         print(f"\nItem exists: {name}")
                         print(f"Current Stock: {current_stock}")
 
-                        add_amount = get_valid_number("Amount to ADD to stock: ", int)
+                        add_amount = get_valid_number("Amount: ", int)
                         new_stock = current_stock + add_amount
                         line[4] = new_stock
 
-                        print(f"Stock updated! Old: {current_stock} -> New: {new_stock}")
+                        print("Stock updated!")
                         input("\nPress Enter to return to the main menu...")
 
-                    updated_rows.append(line)
+                    updated_list.append(line)
                 except (ValueError, IndexError):
-                    updated_rows.append(line)
+                    updated_list.append(line)
 
-        if found:
+        if found == True:
             try:
                 with open(filename, 'w', newline='') as f:
                     writer = csv.writer(f)
-                    writer.writerows(updated_rows)
+                    writer.writerows(updated_list)
                 return
             except PermissionError:
-                print("\nCRITICAL ERROR: Could not update file! File is open in another program.")
+                print("\nCan not update file! File is open in another program.")
                 return
 
     except FileNotFoundError:
         pass
 
-    print(f"\nID {target_id} not found. Creating new component record...")
+    print("Creating new component...")
 
-    c_type = input("Component Type (e.g. Resistor, IC): ").upper()
+    c_type = input("Component Type: ").upper()
     if not c_type:
         c_type = "UNKNOWN"
 
     name = input("Name: ")
     price = get_valid_number("Price: ", float)
-    number = get_valid_number("Initial Stock: ", int)
-    min_limit = get_valid_number("Min Limit Alert: ", int)
+    number = get_valid_number("Stock: ", int)
+    min_limit = get_valid_number("Min Limit: ", int)
     details = input("Details: ")
 
     current = Component(name, target_id, price, number, min_limit, c_type, details)
@@ -102,122 +103,118 @@ def add_component(filename):
         with open(filename, 'a', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(current)
-        print(f"\nSuccess! New item added: {name}")
+        print(f"\nSuccess!")
         input("Press Enter to return to the main menu...")
     except PermissionError:
-        print("\nERROR: Permission denied! Please close the CSV file.")
+        print("\nErorr: Permission denied! Please close the CSV file.")
 
 
 def print_list(filename):
-    components = []
+    componentsList = []
     try:
         with open(filename, 'r', newline='') as f:
             csv_list = csv.reader(f)
             for line in csv_list:
-                if not line: continue
+                if not line:
+                    continue
 
-                try:
-                    current = Component(
-                        name=line[2],
-                        id=int(line[0]),
-                        price=float(line[3]),
-                        number=int(line[4]),
-                        min_limit=int(line[5]),
-                        c_type=line[1],
-                        details=line[6]
-                    )
-                    components.append(current)
-                except (ValueError, IndexError):
-                    print(f"Warning: Skipping corrupt data line -> {line}")
 
-        if not components:
+                current = Component(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[1], line[6])
+                componentsList.append(current)
+
+        if len(componentsList) == 0:
             print("\nList is empty.")
-            input("Press Enter...")
+            input("Press Enter to return to the main menu...")
             return
 
-        components.sort(key=lambda x: x.id)
+        componentsList.sort(key=lambda x: x.id)
 
         print("-" * 97)
         print(
             f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE(TL)':^8} | {'COUNT':^8} | {'LIMIT':^6} | {'DETAILS':<25}")
         print("-" * 97)
-        for i in components:
+        for i in componentsList:
             print(i)
 
         print("\n\n")
         input("Press Enter to return to the main menu...")
 
     except FileNotFoundError:
-        print("File not found. Please add a component first.")
+        print("File not found.")
     except PermissionError:
-        print("\nERROR: Permission denied! Please close the CSV file if it is open in Excel.")
+        print("\nError: Permission denied! Please close the CSV file.")
 
 
 def search_item(filename):
-    search_type = input("Select search type (id or name): ").lower()
+    s_type = input("Select search type (id or name): ").lower()
 
-    if search_type not in ['id', 'name']:
+
+    if s_type != "id" and s_type != "name":
         print("Invalid search type.")
         return
 
     try:
         with open(filename, 'r', newline='') as f:
             csv_list = csv.reader(f)
-            header_printed = False
-            target = input(f"Enter {search_type}: ")
-            found_any = False
+            target = input("Enter (id or name): ")
+            found = False
+            match_list = []
 
             for line in csv_list:
-                if not line: continue
+                if not line:
+                    continue
 
                 try:
-                    is_match = False
-                    if search_type == "name" and line[2].lower() == target.lower(): is_match = True
-                    if search_type == "id" and line[0] == target: is_match = True
+                    match = False
+                    if s_type == "name" and line[2].lower() == target.lower():
+                        match = True
+                    if s_type == "id" and line[0] == target:
+                        match = True
 
-                    if is_match:
-                        found_any = True
-                        current = Component(
-                            name=line[2], id=int(line[0]), price=float(line[3]),
-                            number=int(line[4]), min_limit=int(line[5]),
-                            c_type=line[1], details=line[6]
-                        )
 
-                        if not header_printed:
-                            print("-" * 97)
-                            print(
-                                f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'LIMIT':^6} | {'DETAILS':<25}")
-                            header_printed = True
+                    if match == True:
+                        found = True
+                        current = Component(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[1],line[6])
+                        match_list.append(current)
 
-                        print(current)
+
+
                 except (ValueError, IndexError):
                     continue
 
-            if found_any:
-                print("-" * 97)
+            print("-" * 100)
+            print(f"{'ID':^5} | {'TYPE':^12} | {'NAME':^20} | {'PRICE($)':^8} | {'COUNT':^8} | {'LIMIT':^6} | {'DETAILS':<25}")
+
+            for k in match_list:
+                print(k)
+
+            if found == True:
+                print("-" * 100)
             else:
-                print("Item not found.")
+                print("Item not founded.")
 
             input("\nPress Enter to return to the main menu...")
 
     except FileNotFoundError:
-        print("File not found.")
+        print("File not founded.")
     except PermissionError:
         print("\nERROR: Permission denied! Please close the CSV file.")
 
 
 def withdraw_component(filename):
-    target_id = input("Enter ID to withdraw: ")
+    target_id = input("Enter ID: ")
 
-    updated_rows = []
+    updated_list = []
     found = False
     alert_msg = ""
+
 
     try:
         with open(filename, 'r', newline='') as f:
             csv_list = csv.reader(f)
             for line in csv_list:
-                if not line: continue
+                if not line:
+                    continue
 
                 try:
                     if line[0] == target_id:
@@ -226,44 +223,44 @@ def withdraw_component(filename):
                         min_limit = int(line[5])
                         name = line[2]
 
-                        print(f"\nProduct Found: {name}")
-                        print(f"Current Stock: {current_count}")
+                        print(f"\nProduct Found: {name} || Current Stock: {current_count}")
 
-                        withdraw_amount = get_valid_number("Enter quantity to withdraw: ", int)
 
-                        if withdraw_amount <= current_count:
-                            new_count = current_count - withdraw_amount
+                        amount = get_valid_number("Enter quantity to withdraw: ", int)
+
+                        if amount <= current_count:
+                            new_count = current_count - amount
                             line[4] = new_count
-                            print(f"\nSuccess! Withdrawn: {withdraw_amount}. New Stock: {new_count}")
+                            print(f"\nSuccess!")
 
                             if new_count < min_limit:
-                                alert_msg = f"\n!!! WARNING: Stock for '{name}' is below limit! (Current: {new_count}, Limit: {min_limit}) !!!"
+                                alert_msg = "!! Alert: Stock is below limit!!"
                         else:
                             print("\nError: Not enough stock!")
 
-                    updated_rows.append(line)
+                    updated_list.append(line)
                 except (ValueError, IndexError):
-                    updated_rows.append(line)
+                    updated_list.append(line)
 
-        if found:
+        if found == True:
             try:
                 with open(filename, 'w', newline='') as f:
                     writer = csv.writer(f)
-                    writer.writerows(updated_rows)
+                    writer.writerows(updated_list)
 
                 if alert_msg:
                     print(alert_msg)
             except PermissionError:
-                print("\nCRITICAL ERROR: Could not save changes! File is open in another program.")
+                print("\nCan not save changes! File is open in another program.")
         else:
-            print("\nID not found.")
+            print("\nID not founded.")
 
         input("\nPress Enter to return to the main menu...")
 
     except FileNotFoundError:
-        print("File not found.")
+        print("File not founded.")
     except PermissionError:
-        print("\nERROR: Permission denied! Please close the CSV file.")
+        print("\nERORR : Permission denied! Please close the CSV file.")
 
 
 def check_up(filename):
@@ -275,17 +272,13 @@ def check_up(filename):
                 if not line: continue
 
                 try:
-                    current = Component(
-                        name=line[2], id=int(line[0]), price=float(line[3]),
-                        number=int(line[4]), min_limit=int(line[5]),
-                        c_type=line[1], details=line[6]
-                    )
+                    current = Component(line[2], int(line[0]), float(line[3]), int(line[4]), int(line[5]), line[1],line[6])
                     if current.number < current.min_limit:
                         urgent.append(current)
                 except (ValueError, IndexError):
                     continue
 
-        if not urgent:
+        if len(urgent) == 0:
             print("\nAll stock levels are sufficient.")
         else:
             urgent.sort(key=lambda x: x.id)
@@ -298,13 +291,13 @@ def check_up(filename):
         print("\n\n")
         input("Press Enter to return to the main menu...")
     except FileNotFoundError:
-        print("File not found.")
+        print("File not founded.")
 
 
 def delete_component(filename):
-    target_id = input("Enter ID to delete: ")
+    target_id = input("Enter ID: ")
 
-    updated_rows = []
+    updated_list = []
     found = False
 
     try:
@@ -317,18 +310,18 @@ def delete_component(filename):
                 try:
                     if line[0] == target_id:
                         found = True
-                        print(f"\nItem deleted: {line[2]} (ID: {target_id})")
+                        print("İtem successfuly deleted.")
                         continue
 
-                    updated_rows.append(line)
+                    updated_list.append(line)
                 except (ValueError, IndexError):
-                    updated_rows.append(line)
+                    updated_list.append(line)
 
         if found:
             try:
                 with open(filename, 'w', newline='') as f:
                     writer = csv.writer(f)
-                    writer.writerows(updated_rows)
+                    writer.writerows(updated_list)
             except PermissionError:
                 print("\nCan not save changes! File is open in another program.")
         else:
