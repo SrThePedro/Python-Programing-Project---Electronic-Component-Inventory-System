@@ -141,7 +141,6 @@ class InventoryManager:
 
         print("Creating new component ...")
 
-        # Seçim menüsü yeni sınıflar için güncellendi
         print("\nSelect Type:")
         print("1: Resistor      2: Capacitor")
         print("3: Connector     4: Module")
