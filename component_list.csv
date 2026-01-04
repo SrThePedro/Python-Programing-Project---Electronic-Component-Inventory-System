@@ -1,156 +1,200 @@
-1001,RESISTOR,10R 1/4W,0.1,500,50,Royal Ohm Carbon 5%
-1002,RESISTOR,22R 1/4W,0.1,20,50,Yageo Metal Film 1%
-1003,RESISTOR,47R 1/4W,0.1,480,50,Generic Carbon Axial
-1004,RESISTOR,100R 1/4W,0.1,45,100,Vishay Precision 1%
-1005,RESISTOR,150R 1/4W,0.1,300,30,Thick Film SMD 1206
-1006,RESISTOR,220R 1/4W,0.1,800,100,Carbon Film THT
-1007,RESISTOR,330R 1/4W,0.1,80,100,Panasonic ERJ Series
-1008,RESISTOR,470R 1/4W,0.1,600,50,Metal Oxide 2%
-1009,RESISTOR,1k 1/4W,0.1,150,200,KOA Speer 5%
-1010,RESISTOR,2.2k 1/4W,0.1,400,50,Carbon Film Axial
-1011,RESISTOR,3.3k 1/4W,0.1,25,50,SMD 0805 Package
-1012,RESISTOR,4.7k 1/4W,0.1,800,100,Yageo RC Series
-1013,RESISTOR,10k 1/4W,0.1,2000,200,Standard 5% Bulk
-1014,RESISTOR,22k 1/4W,0.1,40,50,Metal Film 1%
-1015,RESISTOR,47k 1/4W,0.1,250,50,Carbon Comp
-1016,RESISTOR,100k 1/4W,0.1,90,100,Bourns Precision
-1017,RESISTOR,1M 1/4W,0.1,200,30,High Voltage Rated
-1018,RESISTOR,10R 1W,0.5,15,20,Power Resistor Axial
-1019,RESISTOR,100R 1W,0.5,120,20,Flame Proof
-1020,RESISTOR,5W Cement,2.5,5,10,Ceramic Body 0.47R
-1021,POTENTIOMETER,10k Mono,5.0,8,10,Alps Rotary B10K
-1022,POTENTIOMETER,50k Mono,5.0,35,10,Knurled Shaft
-1023,POTENTIOMETER,100k Mono,5.0,30,10,Linear Taper
-1024,TRIMPOT,10k Precision,3.5,60,15,Bourns 3296 Top Adj
-1025,TRIMPOT,100k Precision,3.5,10,15,Multiturn Blue
-1026,LDR,5mm LDR,1.5,100,20,GL5528 Light Dep.
-1027,THERMISTOR,NTC 10k,1.0,15,20,B3950 Epoxy Head
-1028,VARISTOR,14D471K,2.0,5,10,MOV Surge Absorber
-1029,FUSE,500mA Glass,0.5,10,20,Fast Blow 5x20mm
-1030,FUSE,5A Glass,0.5,100,20,Slow Blow 5x20mm
-2001,CAPACITOR,10pF Ceramic,0.2,300,50,NP0 Stable Dielectric
-2002,CAPACITOR,22pF Ceramic,0.2,40,50,Disc 50V Kemet
-2003,CAPACITOR,100pF Ceramic,0.2,250,50,C0G Material
-2004,CAPACITOR,1nF Ceramic,0.25,200,40,Multilayer Yellow
-2005,CAPACITOR,10nF Ceramic,0.25,30,40,X7R Dielectric
-2006,CAPACITOR,100nF Ceramic,0.25,500,100,104 Decoupling
-2007,CAPACITOR,1uF Electrolytic,0.5,150,30,Nichicon 50V
-2008,CAPACITOR,2.2uF Electrolytic,0.5,25,30,Rubycon 105C
-2009,CAPACITOR,4.7uF Electrolytic,0.5,150,30,Panasonic Low ESR
-2010,CAPACITOR,10uF Electrolytic,0.6,300,50,Elna Audio Grade
-2011,CAPACITOR,22uF Electrolytic,0.7,35,40,Samwha 25V
-2012,CAPACITOR,47uF Electrolytic,0.8,200,40,General Purpose
-2013,CAPACITOR,100uF Electrolytic,1.0,40,50,High Ripple Current
-2014,CAPACITOR,220uF Electrolytic,1.2,150,30,Low Impedance
-2015,CAPACITOR,470uF Electrolytic,1.5,150,30,25V Radial Lead
-2016,CAPACITOR,1000uF Electrolytic,2.5,15,20,Power Supply Filter
-2017,CAPACITOR,2200uF Electrolytic,4.0,50,10,Snap-in Type
-2018,CAPACITOR,100nF Polyester,1.5,100,20,Wima MKS4
-2019,CAPACITOR,220nF Polyester,1.8,10,20,Box Type Metallized
-2020,CAPACITOR,470nF Polyester,2.0,80,20,Epcos Film 63V
-3001,DIODE,1N4148,0.2,500,100,Switching DO-35
-3002,DIODE,1N4001,0.3,40,50,Rectifier DO-41
-3003,DIODE,1N4007,0.3,400,50,HV Rectifier 1kV
-3004,DIODE,1N5408,0.8,100,20,Heavy Duty 3A
-3005,DIODE,1N5819,1.0,20,30,Schottky Low Drop
-3006,ZENER,3.3V Zener,0.5,100,20,BZX55C3V3
-3007,ZENER,5.1V Zener,0.5,15,20,1/2W Regulation
-3008,ZENER,12V Zener,0.5,100,20,Glass Body
-3009,BRIDGE,W10M,2.5,5,10,Round Case 1.5A
-3010,LED,Red 5mm,0.25,500,100,Kingbright Diffused
-3011,LED,Green 5mm,0.25,80,100,Standard Brightness
-3012,LED,Yellow 5mm,0.25,400,100,Diffused Lens
-3013,LED,Blue 5mm,0.4,300,50,Water Clear High-Int
-3014,LED,White 5mm,0.5,30,50,Straw Hat 20mA
-3015,LED,RGB Common Cathode,1.5,50,10,4-Leg Clear
-3016,TRANSISTOR,BC547,0.5,300,50,NPN General Purpose
-3017,TRANSISTOR,BC557,0.5,250,50,PNP Complementary
-3018,TRANSISTOR,2N2222,0.6,30,40,Metal Can TO-18
-3019,TRANSISTOR,2N3904,0.6,200,40,Fairchild NPN
-3020,TRANSISTOR,BD139,2.0,80,15,Driver NPN STMicro
-3021,TRANSISTOR,BD140,2.0,10,15,Driver PNP STMicro
-3022,TRANSISTOR,TIP120,3.5,60,10,Power Darlington
-3023,TRANSISTOR,TIP122,3.5,5,10,High Gain NPN
-3024,MOSFET,IRFZ44N,5.0,50,10,Infineon Power FET
-3025,MOSFET,IRF540N,5.5,50,10,100V 33A TO-220
-3026,MOSFET,BS170,1.2,15,20,Small Signal TO-92
-3027,TRIAC,BT136,4.0,8,10,WeEn Semiconductors
-3028,REGULATOR,LM7805,2.5,100,20,Fairchild 5V LDO
-3029,REGULATOR,LM7809,2.5,15,20,9V Fixed Output
-3030,REGULATOR,LM7812,2.5,80,20,12V Heat Sinkable
-3031,REGULATOR,LM317,3.0,15,20,Adj 1.2V-37V
-3032,REGULATOR,AMS1117-3.3,1.5,150,30,SMD SOT-223
-4001,IC,NE555,2.0,200,30,Texas Inst. Timer
-4002,IC,LM741,2.5,100,20,Single Op-Amp UA741
-4003,IC,LM358,2.5,20,30,Low Power Dual OpAmp
-4004,IC,LM324,3.0,100,20,Quad Op-Amp DIP14
-4005,IC,TL072,3.5,15,20,JFET Input Low Noise
-4006,IC,ULN2003,4.0,60,15,Relay Driver 7-Ch
-4007,IC,L293D,12.0,5,10,H-Bridge Motor Drv
-4008,IC,74HC00,3.0,50,10,Quad 2-Input NAND
-4009,IC,74HC04,3.0,5,10,Hex Inverter NXP
-4010,IC,74HC595,4.0,80,15,Shift Reg. SN74HC
-4011,IC,CD4017,4.5,60,10,Johnson Counter
-4012,IC,ATmega328P,45.0,2,5,Microchip w/Bootloader
-4013,IC,ATtiny85,25.0,40,10,8-Pin AVR MCU
-4014,IC,MAX232,5.0,8,10,RS232 to TTL Converter
-4015,IC,PC817,1.0,100,20,Sharp Optoisolator
-4016,IC,MOC3021,2.5,60,15,Triac Driver Opto
-4017,IC,DS1307,8.0,3,5,Real Time Clock I2C
-4018,IC,24C32,4.0,40,10,Atmel I2C EEPROM
-4019,IC,LM386,5.0,8,10,Low Voltage Audio
-4020,IC,TDA2030,8.0,30,5,Hi-Fi Amp 5-Pin
-5001,SENSOR,HC-SR04,25.0,20,5,Sonar Distance New
-5002,SENSOR,DHT11,20.0,3,5,Blue Housing
-5003,SENSOR,LM35,15.0,30,5,Precision Centigrade
-5004,SENSOR,DS18B20,25.0,4,5,Stainless Steel Probe
-5005,SENSOR,PIR HC-SR501,30.0,20,5,Infrared Motion
-5006,SENSOR,MQ-2,40.0,2,3,LPG/Smoke Analog
-5007,SENSOR,Sound Module,15.0,20,5,Mic Amp Comparator
-5008,SENSOR,Rain Module,12.0,4,5,PCB + Probe + Cable
-5009,SENSOR,Soil Moisture,12.0,30,5,Corrosion Resistant
-5010,SENSOR,MPU6050,60.0,2,3,6-Axis Gyro/Accel
-5011,DISPLAY,16x2 LCD,45.0,20,5,White text Blue BG
-5012,DISPLAY,0.96 OLED,50.0,3,5,SSD1306 Driver I2C
-5013,DISPLAY,7-Seg Common A,5.0,40,10,Red 0.56 inch
-5014,DISPLAY,7-Seg Common K,5.0,8,10,Red 0.56 inch
-5015,DISPLAY,7-Seg 4-Digit,15.0,20,5,TM1637 Module
-6001,MODULE,Arduino Uno R3,150.0,2,3,Dip Socket CH340
-6002,MODULE,Arduino Nano,90.0,20,5,Mini USB V3.0
-6003,MODULE,ESP8266 NodeMCU,120.0,4,5,Amica V2 WiFi
-6004,MODULE,ESP32 DevKit,180.0,15,5,Dual Core BLE/WiFi
-6005,MODULE,Step-Down LM2596,25.0,30,5,Adj Voltage Reg
-6006,MODULE,Step-Up MT3608,20.0,2,5,2A Boost Converter
-6007,MODULE,Relay 1-Ch,15.0,40,10,Songle 10A 250V
-6008,MODULE,Relay 2-Ch,25.0,4,5,Optocoupler Protect
-6009,MODULE,Relay 4-Ch,45.0,15,3,Active Low Input
-6010,MODULE,TP4056,5.0,15,20,Battery Charging Protect
-6011,MODULE,Bluetooth HC-05,50.0,2,3,Serial BT 2.0
-6012,MODULE,Bluetooth HC-06,45.0,15,3,Slave Mode Only
-6013,MODULE,NRF24L01,20.0,20,5,Antenna on PCB
-6014,MODULE,RFID RC522,60.0,1,2,Keycard + Fob
-6015,MODULE,Micro SD Adapter,10.0,3,5,Catalex Module
-7001,CONNECTOR,Male Header 40P,2.0,100,20,Single Row Straight
-7002,CONNECTOR,Female Header 40P,3.0,15,20,Single Row Straight
-7003,CONNECTOR,Jumper Wire M-M,15.0,50,10,Multicolored 20cm
-7004,CONNECTOR,Jumper Wire M-F,15.0,8,10,Ribbon Cable 20cm
-7005,CONNECTOR,Jumper Wire F-F,15.0,50,10,Ribbon Cable 10cm
-7006,CONNECTOR,Breadboard MB102,30.0,25,5,Power Rails Included
-7007,CONNECTOR,Mini Breadboard,10.0,8,10,Self-Adhesive Back
-7008,CONNECTOR,DC Jack Male,2.5,50,10,Solder Type
-7009,CONNECTOR,DC Jack Female,2.5,8,10,Plastic Chassis Mnt
-7010,CONNECTOR,USB-B Socket,3.0,30,5,Printer Port Type
-7011,CONNECTOR,Micro USB Socket,2.0,40,10,5-Pin SMD
-7012,CONNECTOR,Screw Terminal 2P,1.5,40,50,Blue KF301-2P
-7013,CONNECTOR,Screw Terminal 3P,2.0,100,20,Green KF128-3P
-7014,SWITCH,Tactile Button,0.5,500,100,4-Pin Through Hole
-7015,SWITCH,Toggle Switch,5.0,5,10,MTS-102 Blue
-7016,SWITCH,Slide Switch,1.5,100,20,SS-12D00G3
-7017,SWITCH,Rocker Switch,3.0,10,15,Small Black I/O
-7018,BATTERY,9V Battery Clip,3.0,50,10,T-Type Connector
-7019,BATTERY,18650 Holder 1-Slot,10.0,3,5,Spring Loaded
-7020,BATTERY,CR2032 Holder,5.0,40,10,Coin Cell Socket
-8001,TOOL,Soldering Iron,150.0,1,2,Temperature Control
-8002,TOOL,Solder Wire,80.0,2,3,Soldex 200g
-8003,TOOL,Desoldering Pump,40.0,5,2,Suction Pen
-8005,TOOL,Wire Stripper,70.0,5,2,Plier Type
+1001,Resistor,10R 1/4W,0.25,1000,100,CF 5% Tolerance
+1002,Resistor,22R 1/4W,0.25,950,100,CF 5% Axial Lead
+1003,Resistor,47R 1/4W,0.25,800,100,CF General Purpose
+1004,Resistor,100R 1/4W,0.25,1200,200,CF 5% Beige Body
+1005,Resistor,150R 1/4W,0.25,500,100,CF Standard Series
+1006,Resistor,220R 1/4W,0.25,1500,200,CF Tape Package
+1007,Resistor,330R 1/4W,0.25,1100,150,CF 5% 0.25W
+1008,Resistor,470R 1/4W,0.25,850,100,CF Flame Retardant
+1009,Resistor,1k 1/4W,0.25,2000,500,CF Most Common
+1010,Resistor,2.2k 1/4W,0.25,900,100,CF Pull-up Ref
+1011,Resistor,3.3k 1/4W,0.25,750,100,CF Orange-Org-Red
+1012,Resistor,4.7k 1/4W,0.25,1300,200,CF Logic Pull-up
+1013,Resistor,5.6k 1/4W,0.25,600,100,CF Green-Blue-Red
+1014,Resistor,10k 1/4W,0.25,2500,500,CF Standard Pull-up
+1015,Resistor,22k 1/4W,0.25,800,100,CF Audio Input
+1016,Resistor,47k 1/4W,0.25,700,100,CF Bias Resistor
+1017,Resistor,100k 1/4W,0.25,950,150,CF High Impedance
+1018,Resistor,1M 1/4W,0.25,400,50,CF Leakage Bleeder
+1019,Resistor,10R 1/2W,0.50,300,50,Metal Film 1% Prec
+1020,Resistor,100R 1/2W,0.50,250,50,Metal Film 1% Prec
+1021,Resistor,1k 1/2W,0.50,400,50,Metal Film Blue Body
+1022,Resistor,10k 1/2W,0.50,350,50,Metal Film Low Noise
+1023,Resistor,5W 10R,5.00,50,10,Ceramic Cement Body
+1024,Resistor,5W 100R,5.00,45,10,Wirewound Power
+1025,Resistor,0805 100R,0.10,5000,1000,SMD Thick Film
+1026,Resistor,0805 1k,0.10,5000,1000,SMD Tape & Reel
+1027,Resistor,0805 10k,0.10,4800,1000,SMD RoHS Compliant
+1028,Resistor,0603 0R,0.10,2000,500,SMD Zero Ohm Link
+1029,Resistor,33R 1/4W,0.25,300,50,CF LED Limiter
+1030,Resistor,68R 1/4W,0.25,300,50,CF Bus Termination
+1031,Resistor,120R 1/4W,0.25,400,50,CF USB Data Line
+1032,Resistor,180R 1/4W,0.25,250,50,CF 5% Tolerance
+1033,Resistor,270R 1/4W,0.25,300,50,CF Current Set
+1034,Resistor,390R 1/4W,0.25,300,50,CF 5% Tolerance
+1035,Resistor,560R 1/4W,0.25,400,50,CF Green-Blue-Brown
+1036,Resistor,680R 1/4W,0.25,350,50,CF Blue-Grey-Brown
+1037,Resistor,820R 1/4W,0.25,200,50,CF Grey-Red-Brown
+1038,Resistor,1.2k 1/4W,0.25,400,50,CF 5% Tolerance
+1039,Resistor,1.5k 1/4W,0.25,300,50,CF Voltage Divider
+1040,Resistor,1.8k 1/4W,0.25,250,50,CF 5% Tolerance
+1041,Resistor,2.7k 1/4W,0.25,300,50,CF Red-Violet-Red
+1042,Resistor,3.9k 1/4W,0.25,300,50,CF Orange-White-Red
+1043,Resistor,6.8k 1/4W,0.25,400,50,CF Blue-Grey-Red
+1044,Resistor,8.2k 1/4W,0.25,250,50,CF Grey-Red-Red
+1045,Resistor,12k 1/4W,0.25,300,50,CF Brown-Red-Orange
+1046,Resistor,15k 1/4W,0.25,300,50,CF 5% Tolerance
+1047,Resistor,18k 1/4W,0.25,200,50,CF 5% Tolerance
+1048,Resistor,27k 1/4W,0.25,250,50,CF Red-Violet-Org
+1049,Resistor,33k 1/4W,0.25,300,50,CF Orange-Org-Org
+1050,Resistor,39k 1/4W,0.25,200,50,CF Orange-White-Org
+2001,Capacitor,10pF,0.50,500,100,Ceramic NP0 Stable
+2002,Capacitor,22pF,0.50,600,100,Ceramic OSC Cap
+2003,Capacitor,100pF,0.50,400,100,Ceramic RF Filter
+2004,Capacitor,1nF,0.50,800,100,Ceramic Code 102
+2005,Capacitor,10nF,0.50,20,100,Ceramic Code 103
+2006,Capacitor,100nF,0.50,1500,200,Multilayer MLCC
+2007,Capacitor,1uF 50V,1.00,300,50,Elec Polarized
+2008,Capacitor,2.2uF 50V,1.00,200,50,Elec Audio Coupling
+2009,Capacitor,4.7uF 50V,1.00,250,50,Elec 105C Temp
+2010,Capacitor,10uF 25V,1.50,600,100,Elec Filter Cap
+2011,Capacitor,22uF 25V,1.50,400,50,Elec Low ESR
+2012,Capacitor,47uF 25V,1.50,300,50,Elec Radial Lead
+2013,Capacitor,100uF 16V,2.00,500,100,Elec Power Smoothing
+2014,Capacitor,220uF 16V,2.50,250,50,Elec Bulk Store
+2015,Capacitor,470uF 16V,3.00,300,50,Elec Ripple Reduce
+2016,Capacitor,1000uF 16V,4.00,200,40,Elec Large Can
+2017,Capacitor,2200uF 16V,6.00,100,20,Elec Main Filter
+2018,Capacitor,100nF SMD,0.25,2000,500,0805 X7R Dielectric
+2019,Capacitor,10uF SMD,0.50,1000,200,1206 X5R 16V
+2020,Capacitor,1uF Polyester,2.00,150,30,Film Non-Polar MKT
+2021,Capacitor,15pF,0.50,200,50,Ceramic Disc 50V
+2022,Capacitor,33pF,0.50,200,50,Ceramic for Crystal
+2023,Capacitor,47pF,0.50,200,50,Ceramic Disc 50V
+2024,Capacitor,68pF,0.50,200,50,Ceramic Disc 50V
+2025,Capacitor,220pF,0.50,300,50,Ceramic Disc Code 221
+2026,Capacitor,330pF,0.50,250,50,Ceramic Disc Code 331
+2027,Capacitor,470pF,0.50,300,50,Ceramic Disc Code 471
+2028,Capacitor,2.2nF,0.50,200,50,Ceramic Disc Code 222
+2029,Capacitor,3.3nF,0.50,200,50,Ceramic Disc Code 332
+2030,Capacitor,4.7nF,0.50,250,50,Ceramic Disc Code 472
+2031,Capacitor,22nF,0.50,300,50,Ceramic Disc Code 223
+2032,Capacitor,33nF,0.50,200,50,Ceramic Disc Code 333
+2033,Capacitor,47nF,0.50,250,50,Ceramic Disc Code 473
+2034,Capacitor,68nF,0.50,200,50,Ceramic Disc Code 683
+2035,Capacitor,0.22uF 50V,1.00,200,50,Elec Sub-miniature
+2036,Capacitor,0.47uF 50V,1.00,200,50,Elec Sub-miniature
+2037,Capacitor,33uF 25V,1.50,200,50,Elec 85C Standard
+2038,Capacitor,330uF 16V,3.00,150,30,Elec Low Impedance
+2039,Capacitor,680uF 16V,4.00,100,20,Elec Motherboard Grade
+2040,Capacitor,4700uF 25V,12.00,50,10,Elec Snap-in Type
+3001,LED,Red 5mm,0.75,800,100,Diffused Lens 20mA
+3002,LED,Green 5mm,0.75,750,100,Diffused Lens 20mA
+3003,LED,Yellow 5mm,0.75,600,100,Diffused Lens 20mA
+3004,LED,Blue 5mm,1.00,500,100,Water Clear High Bright
+3005,LED,White 5mm,1.50,400,100,Water Clear 6000K
+3006,LED,RGB Common Anode,3.00,200,50,4-Pin Diffused
+3007,LED,RGB Common Cathode,3.00,200,50,4-Pin Clear
+3008,LED,Red 3mm,0.75,400,100,Miniature Indicator
+3009,LED,Green 3mm,0.75,400,100,Miniature Indicator
+3010,LED,IR Transmitter,2.00,150,30,940nm Clear Lens
+3011,LED,IR Receiver,2.50,150,30,Photodiode Black
+3012,LED,Red SMD 0805,0.50,1000,200,SMD Indicator
+3013,LED,Green SMD 0805,0.50,1000,200,SMD Indicator
+3014,LED,Blue SMD 0805,0.75,800,200,SMD Ice Blue
+3015,LED,Yellow SMD 0805,0.50,800,200,SMD Indicator
+3016,LED,White SMD 0805,1.00,600,150,SMD Pure White
+3017,LED,Orange 5mm,0.75,300,50,Diffused Amber
+3018,LED,UV 5mm,2.00,100,20,Ultraviolet 395nm
+3019,LED,Laser Diode 5V,15.00,50,10,Red Dot 5mW Brass
+3020,LED,WS2812B,2.50,200,50,Digital Addressable RGB
+4001,Diode,1N4007,0.50,1000,200,1000V 1A DO-41
+4002,Diode,1N4148,0.25,1200,200,High Speed Switch DO-35
+4003,Diode,1N5819,1.00,500,100,Schottky Low Drop 40V
+4004,Diode,1N5408,1.50,300,50,3A Standard Rec DO-27
+4005,Diode,Zener 3.3V,1.00,400,50,0.5W 5% Regulation
+4006,Diode,Zener 5.1V,1.00,400,50,0.5W 5% Regulation
+4007,Diode,Zener 9.1V,1.00,300,50,0.5W 5% Regulation
+4008,Diode,Zener 12V,1.00,300,50,0.5W 5% Regulation
+4009,Diode,Bridge Rectifier,5.00,100,20,2W10 2A 1000V Round
+4010,Diode,SS14 SMD,0.75,500,100,Schottky 1A SMA
+4011,Diode,SS34 SMD,1.00,400,100,Schottky 3A SMA
+4012,Diode,M7 SMD,0.50,800,200,1N4007 Equivalent SMA
+4013,Diode,FR107,0.75,300,50,Fast Recovery 1kV
+4014,Diode,FR207,1.00,250,50,Fast Recovery 2A
+4015,Diode,6A10,2.00,150,30,Heavy Duty 6A Axial
+5001,IC,NE555P,3.50,200,50,Precision Timer DIP-8
+5002,IC,LM741CN,4.00,150,30,General OpAmp DIP-8
+5003,IC,LM358N,3.00,250,50,Dual Low Power OpAmp
+5004,IC,LM324N,4.50,150,30,Quad Low Power OpAmp
+5005,IC,74HC595,5.00,100,20,8-bit Shift Register
+5006,IC,74HC00,4.00,100,20,Quad 2-Input NAND
+5007,IC,74HC08,4.00,100,20,Quad 2-Input AND
+5008,IC,74HC32,4.00,100,20,Quad 2-Input OR
+5009,IC,74HC04,4.00,100,20,Hex Inverter NOT
+5010,IC,L7805CV,4.00,300,50,Voltage Reg 5V 1.5A
+5011,IC,L7809CV,4.00,200,40,Voltage Reg 9V 1.5A
+5012,IC,L7812CV,4.00,200,40,Voltage Reg 12V 1.5A
+5013,IC,LM317T,5.00,150,30,Adjustable Reg TO-220
+5014,IC,ULN2003,6.00,100,20,Darlington Trans Array
+5015,IC,L293D,15.00,50,10,H-Bridge Motor Driver
+5016,IC,ATmega328P,45.00,40,10,MCU 8-bit 32KB DIP28
+5017,IC,ATTINY85,25.00,60,15,MCU 8-bit 8KB DIP8
+5018,IC,PC817,2.00,200,40,Opto-Isolator 1-Ch
+5019,IC,MOC3021,4.00,100,20,Opto-Triac Driver Random
+5020,IC,MAX232,8.00,80,15,RS232 to TTL Converter
+6001,Sensor,LM35DZ,12.00,50,10,Analog Temp Precision
+6002,Sensor,DHT11,25.00,8,15,Digital Temp/Humid
+6003,Sensor,LDR 5mm,2.00,300,50,Light Dependent Res
+6004,Sensor,HC-SR04,30.00,40,10,Ultrasonic Distance
+6005,Sensor,PIR HC-SR501,25.00,30,10,Passive Infrared Motion
+6006,Sensor,MPU6050,45.00,25,5,6-Axis Gyro/Accel I2C
+6007,Sensor,MQ-2,35.00,20,5,Gas/Smoke Detector
+6008,Sensor,TCRT5000,5.00,100,20,IR Reflective Optical
+6009,Sensor,DS18B20,15.00,60,15,Digital Temp Waterproof
+6010,Sensor,Sound Sensor,15.00,40,10,Mic Module with Digital Out
+6011,Sensor,Soil Moisture,12.00,50,15,Resistive PCB Probe
+6012,Sensor,Rain Sensor,15.00,40,10,Raindrop Module
+6013,Sensor,Hall Effect 3144,5.00,100,20,Magnetic Switch
+6014,Sensor,Flex Sensor,80.00,10,2,Bend Sensitive 2.2"
+6015,Sensor,Force Sensor,70.00,10,2,FSR402 Pressure Pad
+7001,Module,Arduino Uno R3,250.00,20,5,Dev Board w/ USB Cable
+7002,Module,Arduino Nano,120.00,30,10,Dev Board Mini USB
+7003,Module,ESP8266 NodeMCU,150.00,25,5,WiFi IoT Board Lua
+7004,Module,HC-05,90.00,20,5,Bluetooth Master/Slave
+7005,Module,HC-06,85.00,20,5,Bluetooth Slave Only
+7006,Module,Relay 1-Ch 5V,20.00,50,10,Opto-isolated 10A
+7007,Module,Relay 2-Ch 5V,35.00,40,10,Opto-isolated 10A
+7008,Module,Step-Down LM2596,25.00,60,15,Buck DC-DC Adj
+7009,Module,Step-Up MT3608,20.00,60,15,Boost DC-DC Adj
+7010,Module,L298N,60.00,30,10,Dual H-Bridge Driver
+8001,Connector,Male Header 40p,5.00,300,50,2.54mm Breakable Gold
+8002,Connector,Female Header 40p,5.00,300,50,2.54mm Straight
+8003,Connector,Jumper M-M 20cm,10.00,150,30,Multicolored Ribbon 10p
+8004,Connector,Jumper M-F 20cm,10.00,150,30,Multicolored Ribbon 10p
+8005,Connector,Jumper F-F 20cm,10.00,150,30,Multicolored Ribbon 10p
+8006,Connector,DC Jack Female,3.00,100,20,5.5x2.1mm Barrel
+8007,Connector,USB Type-B,5.00,80,15,PCB Mount 90-Deg
+8008,Connector,Micro USB,3.00,100,20,SMD 5-Pin Female
+8009,Connector,Screw Terminal 2p,2.50,400,50,KF301 PCB Block 5mm
+8010,Connector,Screw Terminal 3p,3.50,300,50,KF301 PCB Block 5mm
+9001,Potentiometer,1k Linear,10.00,100,20,WH148 Knurled Shaft
+9002,Potentiometer,5k Linear,10.00,100,20,WH148 Knurled Shaft
+9003,Potentiometer,10k Linear,10.00,120,20,WH148 Knurled Shaft
+9004,Potentiometer,50k Linear,10.00,80,20,WH148 Knurled Shaft
+9005,Potentiometer,100k Linear,10.00,80,20,WH148 Knurled Shaft
+9006,Potentiometer,Trimpot 10k,2.50,200,50,3362P PCB Mount
+9007,Potentiometer,Trimpot 100k,2.50,150,40,3362P PCB Mount
+9008,Potentiometer,Multi-turn 10k,15.00,50,10,3296 Precision Blue
+9009,Potentiometer,Encoder,25.00,40,10,Rotary KY-040 Module
+9010,Potentiometer,Joystick,35.00,30,10,2-Axis Analog + Sw
+9501,Tool,Multimeter,350.00,10,2,Digital TrueRMS Auto
+9502,Tool,Soldering Iron,150.00,4,5,60W Adj Temp Ceramic
+9503,Tool,Solder Wire,80.00,20,5,60/40 Rosin Core 50g
+9504,Tool,Flux Paste,40.00,30,5,Rosin Soldering Grease
+9505,Tool,Solder Sucker,50.00,15,3,Aluminum Desoldering Pump
+9506,Tool,Wire Stripper,120.00,10,2,Auto Adjust Cutter
+9507,Tool,Breadboard Full,45.00,50,10,830 Tie-Points MB-102
+9508,Tool,Breadboard Half,25.00,60,15,400 Tie-Points White
+9509,Tool,9V Battery Clip,5.00,100,20,T-Type with DC Jack
+9510,Tool,Battery Holder AA,10.00,80,15,4xAA Series Case
